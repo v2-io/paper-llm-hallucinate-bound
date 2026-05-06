@@ -12,9 +12,9 @@ We document two derivation routes that failed at structural levels, so future wo
 
 ### Route F2: Rate-distortion inversion ^sec-failed-routes-rate-distortion
 
-**Attempt.** Apply Shannon's rate-distortion inequality $R(D) \geq h(X) - \tfrac{1}{2}\log(2\pi e D)$ for a Gaussian source. Invert to $D \leq \sigma^2 \cdot 2^{-2(R - h(X))}$ with "bits in" interpreted as $I(G;\Omega \mid e, M)$, "distortion" interpreted as $\Vert\Delta M_{\text{bias}}\Vert^2$.
+**Attempt.** Apply Shannon's rate-distortion inequality $R(D) \geq h(X) - \tfrac{1}{2}\log(2\pi e D)$ for a Gaussian source. Invert to $D \leq \sigma^2 \cdot 2^{-2(R - h(X))}$ with "bits in“ interpreted as $I(G;\Omega \mid e, M)$, ”distortion" interpreted as $\Vert\Delta M_{\text{bias}}\Vert^2$.
 
-**Why it fails.** Rate-distortion theory describes the minimum bits-per-symbol required to *represent* a source within distortion $D$; it does not describe the maximum *displacement induced* by injecting side-information into an update mechanism. The two problems have different structures: source-coding is about optimal representations; side-information injection is about perturbation propagation. Identifying "bits in" with $I$ and "distortion" with displacement does not produce a sound inequality — the rate-distortion curve is about a different operational quantity.
+**Why it fails.** Rate-distortion theory describes the minimum bits-per-symbol required to *represent* a source within distortion $D$; it does not describe the maximum *displacement induced* by injecting side-information into an update mechanism. The two problems have different structures: source-coding is about optimal representations; side-information injection is about perturbation propagation. Identifying "bits in“ with $I$ and ”distortion" with displacement does not produce a sound inequality — the rate-distortion curve is about a different operational quantity.
 
 **Lesson.** Source-coding theorems are about optimal representations of a source, not spatial displacement induced by side-information injection. Upper bounds on displacement require transport-inequality machinery (Pinsker, Otto-Villani, Bakry-Émery, Lipschitz-posterior).
 

@@ -4,6 +4,28 @@
 
 ---
 
+## Inbox — flagged 2026-05-06 by build-pipeline agent
+
+**Page-budget reality check — substantial overrun.** `bin/build 03-llm-hallucinate-bound neurips-2026-paper` currently produces a 38-page PDF; main text (§1–§8) ends at page 27, References starts at page 28, Appendix A at page 31. That's **~18 pages over** the 9-page main-text limit. The earlier OUTLINE risk-register note ("comfortable at 9 pages, probably 8.5") doesn't match the current build — please verify directly via `pdfinfo out/neurips-2026-paper.pdf` plus a grep for the References transition, then plan substantial main-text trim and/or aggressive appendix relocation. The current manifest doesn't have any rows commented out. (Page-budget tool `bin/page-budget` is a known PIPELINE-TODO §E3 port-pending item; in the meantime `pdfinfo` + grep-for-section-transitions is the manual check.)
+
+**`[!table] cols="..."` opt-in just landed (umbrella commit `d4218a8`).** `src/02-setup.md:29-43` currently uses a raw `{::nomarkdown}\begin{table}...\begin{tabularx}{\textwidth}{@{}l X X X@{}}...{:/nomarkdown}` block for the Goal/Update Coupling Class partition table — the migration agent's escape hatch when default `tabular` was overflowing. With the new attribute, this can refactor to:
+
+```
+> [!table] Goal/Update Coupling Class — partition of architectures by conditional-independence structure. ^tab-class-partition cols="l X X X"
+>
+> | Class | Goal/update coupling | Topology | Examples |
+> |:------|:--------------------|:---------|:---------|
+> | Class 1 (Separated) | ... | ... | ... |
+> | Class 2 (Partial)   | ... | ... | ... |
+> | Class 3 (Coupled)   | ... | ... | Transformer LLM (attention processes goals and observations together — [[#^thm-attention-coupled]]) |
+```
+
+This re-enables `[[#^anchor]]` cross-refs (the manual `\Cref{thm-attention-coupled}` at line 40 inside the raw block can become `[[#^thm-attention-coupled]]`) and shrinks the source. AUTHORING §1.4 documents the convention. Optional refactor — the current raw-TeX form renders correctly.
+
+**Bold-prefix vs callout form — verify intentional.** `src/B-hypothesis-verification.md:15` uses `**Hypothesis (S) — own proof of strong log-concavity for Bayesian post-updates.**` as a paragraph-prefix. AUTHORING §1.1 prefers Obsidian `> [!hypothesis] (S) — ... ^hyp-S` callout for theorem-shaped envs; AUTHORING §1.9 allows bold-prefix for plain paragraph headings. The "(S)" naming convention suggests a deliberately-unnumbered named hypothesis, which is fine — but if you want `\Cref{hyp-S}` cross-references to it, it should be a callout. Your call.
+
+---
+
 ## Migration milestone — landed 2026-05-05 (agent #3)
 
 All scaffolding + body + appendices + manifests + citation canonicalization landed:
