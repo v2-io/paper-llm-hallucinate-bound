@@ -1,0 +1,4 @@
+.DS_Store
+
+# Build artifacts (bin/build emits .tex/.pdf/.aux/.log/.bbl into out/).
+out/
