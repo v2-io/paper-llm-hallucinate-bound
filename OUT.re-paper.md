@@ -13,3 +13,9 @@
 | 5 | Section      | [mechanism](src/re/05-mechanism.md)                             | Mechanism                                                   | draft |
 | 6 | Section      | [conclusion](src/re/06-conclusion.md)                           | Conclusion                                                  | draft |
 | – | Bibliography | [references](src/references.md)                                 | References                                                  | draft |
+| A | Appendix     | [failed-routes](src/re/A-failed-routes.md)                      | Failed routes                                               | draft |
+| B | Appendix     | [hypothesis-verification](src/re/B-hypothesis-verification.md)  | Hypothesis verification details                             | draft |
+| C | Appendix     | [conjugate-gauss-numerics](src/re/C-conjugate-gaussian-numerics.md) | Conjugate-Gaussian numerical comparison                  | draft |
+| D | Appendix     | [track2-companions](src/re/D-track2-companions.md)              | Track 2 companions and parametric Euclidean translations    | draft |
+| E | Appendix     | [proofs](src/re/E-proofs.md)                                    | Proofs of main results                                      | draft |
+| F | Appendix     | [related-work-extended](src/re/F-related-work-extended.md)      | Extended related work                                       | draft |

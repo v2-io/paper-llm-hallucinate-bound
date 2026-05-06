@@ -32,7 +32,7 @@ Conditioning on $M_{\tau^-}$ matters: prior correlation between goals and prior 
 
 ### Axioms ^sec-axioms
 
-The universal-constant route ([[#^sec-track2]], Track 2) commits to three axioms on the bound's metric $d_{\mathcal{M}}$:
+The universal-constant route ([[#^sec-track2-mechanism]], Track 2) commits to three axioms on the bound's metric $d_{\mathcal{M}}$:
 
 > [!hypothesis] (PI) Sufficient-statistic invariance ^pi-axiom
 > The bias bound's metric on $\mathcal{M}$ is invariant under sufficient statistics — equivalently, under Markov morphisms / congruent embeddings of statistical manifolds in the sense of \citet{cencov-1982-stat-decision}.
@@ -49,7 +49,7 @@ The universal-constant route ([[#^sec-track2]], Track 2) commits to three axioms
 
 (K) fixes the global scalar Čencov leaves free, pinning the bound's constant $C$ at $\sqrt{2}$. (R) and (K) are both implicit in any "$\mathbb{E}\,d \le C\sqrt{I}$" theorem-shape with second-order matching; we name them explicitly so the uniqueness statement of [[#^thm-fr-uniqueness]] has its hypotheses fully stated.
 
-The transport-inequality route ([[#^sec-track1]], Track 1) and the dimension-restricted slice-wise refinements ([[#^thm-track2-uncond]] locally tight) introduce additional regularity hypotheses inline with the theorems that invoke them. Throughout the paper we restrict to the *statistical-manifold sub-case*:
+The transport-inequality route ([[#^sec-track1-mechanism]], Track 1) and the dimension-restricted slice-wise refinements ([[#^thm-umbrella]]'s Track 2 locally-tight instantiation) introduce additional regularity hypotheses inline with the theorems that invoke them. Throughout the paper we restrict to the *statistical-manifold sub-case*:
 
 > [!hypothesis] (H1) Statistical-manifold sub-case ^h1-axiom
 > The model state $M_t \in \mathcal{M}$ corresponds to a probability distribution $P_{M_t}$ over latent world-states, and $\mathcal{M}$ is locally a statistical manifold in the sense of \citet{amari-nagaoka-2000-info-geom}; $\mathcal{M}$, the goal-space, and the event-space are *standard Borel*, so regular conditional probabilities exist as Markov kernels \cite[Theorem 6.3]{kallenberg-2002-foundations}.
