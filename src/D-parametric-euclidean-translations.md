@@ -34,7 +34,7 @@ The pattern: for natural-parameter charts on simplex / discrete-outcome models *
 
 [[#^thm-hellinger]]'s Hellinger backstop and [[#^thm-track2-uncond]]'s Fisher-Rao bound are connected through the unit-sphere representation of statistical manifolds. We adopt the standard statistician's Hellinger and Amari-Nagaoka Fisher-Rao conventions throughout:
 
-- $\mathrm{Hel}^2(P,Q) := \tfrac{1}{2}\Vert\sqrt p - \sqrt q\Vert_{L^2}^2 = 1 - \int\sqrt{pq}\,d\mu$, so $\mathrm{Hel} \in [0, 1]$, with the global inequality $2\mathrm{Hel}^2 \le \mathrm{KL}$ (\citealt[Lemma 2.4]{tsybakov-2009}).
+- $\mathrm{Hel}^2(P,Q) := \tfrac{1}{2}\Vert\sqrt p - \sqrt q\Vert_{L^2}^2 = 1 - \int\sqrt{pq}\,d\mu$, so $\mathrm{Hel} \in [0, 1]$, with the global inequality $2\mathrm{Hel}^2 \le \mathrm{KL}$ (\citealt[Lemma 2.4]{tsybakov-2009-nonparametric}).
 - $d_{FR}(P,Q) := 2\arccos\int\sqrt{pq}\,d\mu = 2\theta$ where $\theta$ is the angle between $\sqrt p$ and $\sqrt q$ on the unit sphere of $L^2$, so $d_{FR} \in [0, \pi]$.
 
 Under these conventions, Hellinger and Fisher-Rao satisfy

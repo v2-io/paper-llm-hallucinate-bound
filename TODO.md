@@ -77,9 +77,22 @@ For agent context, not action items:
 
 ## Citation migration — pending and ambiguous matches
 
-*Populated as `bin/migrate-cites` runs surface them. Hyphenated multi-author keys are the trickiest pattern: `[Kalai-Nachum-Vempala-Zhang 2026]`, `[Karbasi-Montasser-Sous-Velegkas 2025]`, `[Liu-Hu-Zhang-Song-Liu 2025]`, `[Chlon-Karim-Chlon 2025]`, `[Hosseini-Hsu-Taghvaei 2025]`, `[Garbuno-Inigo et al. 2023]`, `[Bruineberg et al. 2022]`, `[Owhadi-Scovel-Sullivan 2015a / 2015b]` (a/b suffix disambiguation needed).*
+Cite-key canonicalization done at migration time: 145 replacements across 13 segment files, mapping speculative `\cite{<author>-<year>}` keys to the canonical `<authors>-<year>-<slug>` form used in `refs/entries/`. `bin/refs emit 03-llm-hallucinate-bound` now generates `refs.bib` with 472 lines covering ~55 cited keys.
 
-(Empty until migration runs.)
+**4 keys still missing from `refs/entries/`** — flagged for the per-paper agent to add via `bin/refs add`:
+
+- `lie-sullivan-teckentrup-2017` — Lie, Sullivan, Teckentrup, *Hellinger-distance bounds for randomized forward models* (cited in §7.2). Old workspace bib may have this; verify before adding.
+- `parr-dacosta-friston-2019` — Parr, Da Costa, Friston, on Markov-blanket apparatus / generalised free energy (cited in §7.6). May be one of the existing `parr-2017-uncertainty` / `parr-2018-generalised` / `parr-2022-active` entries; verify before adding.
+- `su-kempe-ullrich-2024` — Su, Kempe, Ullrich, *jailbreaking from a statistical perspective* (cited in §7.5).
+- `wu-grama-szpankowski-2024` — Wu, Grama, Szpankowski, *VC-dimension impossibility* (cited in §1, §7.1, §8). Per OUTLINE Pass-4: arXiv 2024 with ICLR 2025 venue accepted; flag whether to use 2024 or 2025 year-of-record.
+
+The build's anonymization scanner will continue to flag these as `[?]` superscripts in the PDF until the entries land.
+
+**Cite-disambiguations that landed during canonicalization** (for future-agent context):
+
+- `kalai-vempala-2023` (my speculative key) → `kalai-2023-calibrated` (Calibrated Language Models Must Hallucinate, STOC 2023). Note: also exists as `kalai-vempala-2024-must-hallucinate` (same paper, 2024 venue update); the per-paper agent may want to consolidate.
+- `kalai-nachum-vempala-zhang-2026` → `kalai-2025-why` (renamed in entry to "Evaluating large language models for accuracy incentivizes hallucinations", Nature 2026 with arXiv 2025 noted in `note` field per Pass-4 OUTLINE update).
+- `hosseini-hsu-taghvaei-2025` → `hosseini-hsu-taghvaei-2024-conditional-ot`. The 2024 vs 2025 year question may want re-checking against the SIAM/ASA J. UQ 13(1):304–338 publication record; per-paper agent territory.
 
 ---
 
