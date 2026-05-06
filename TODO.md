@@ -24,6 +24,24 @@ This re-enables `[[#^anchor]]` cross-refs (the manual `\Cref{thm-attention-coupl
 
 **Bold-prefix vs callout form — verify intentional.** `src/B-hypothesis-verification.md:15` uses `**Hypothesis (S) — own proof of strong log-concavity for Bayesian post-updates.**` as a paragraph-prefix. AUTHORING §1.1 prefers Obsidian `> [!hypothesis] (S) — ... ^hyp-S` callout for theorem-shaped envs; AUTHORING §1.9 allows bold-prefix for plain paragraph headings. The "(S)" naming convention suggests a deliberately-unnumbered named hypothesis, which is fine — but if you want `\Cref{hyp-S}` cross-references to it, it should be a callout. Your call.
 
+**List-renumber across `$$` — fixable at source via 3-space indent.** Confirmed reproduces at §6.4 (`src/06-discussion.md` lines 93–101) and §B.3 (`src/B-hypothesis-verification.md` Conditions 1+2). Each `1. item ... <blank> $$math$$ <blank> 2. item` pattern emits two separate `\begin{enumerate}` envs in the rendered TeX, each starting at item 1. Fix: indent the un-indented `$$...$$` blocks 3 spaces under the preceding list item — kramdown then reads them as continuation content of that item, and the `1./2./3.` items render as a single enumerate with correct numbering. Concrete edit for §6.4:
+
+```
+1. *Goal-blind effective kernel.* ...long item text...
+
+   $$I(G; M_{\tau^+}| e_\tau, M_{\tau^-}) \le ...$$ ^eq-goal-blind-kernel
+
+2. *Bounded direct architectural channel.* ...long item text...
+
+   $$I(G; M_{\tau^+}, \Omega_\tau | e_\tau, M_{\tau^-}) = ...$$ ^eq-mi-chain-rule
+
+   $$I(G; M_{\tau^+}| e_\tau, M_{\tau^-}) \le ...$$ ^eq-direct-channel-bound
+```
+
+(Three spaces, not a tab; the second item-2 equation also gets 3 spaces because it's also continuation of item 2's body.) AUTHORING §1.6 now documents this convention. Same pattern applies at §B.3. No pipeline change needed.
+
+**Smart-quote vs `$` — not actually broken in PDF.** Your post-revert verification reported smart-quote conversion failing in §C numerical-comparison appendix. Hex-dump of pdftotext output for the σpost√2I phrase shows `e2 80 9c` and `e2 80 9d` — UTF-8 encodings of U+201C / U+201D (proper curly quotes). The intermediate `out/full-paper.tex` has `` ``$\sigma\sqrt{2I}$'' `` ligature form that lualatex renders to typographic curly quotes. Likely explanation: the PDF viewer or pdftotext setting in your local view is rendering UTF-8 curly quotes as straight glyphs. The actual rendered output is correct. Keep the post-revert ASCII `"` form. If you can confirm via a different viewer or hex-dump on your end and the curly bytes are missing, please update with the new evidence.
+
 ---
 
 ## Migration milestone — landed 2026-05-05 (agent #3)
