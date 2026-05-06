@@ -40,6 +40,16 @@ This re-enables `[[#^anchor]]` cross-refs (the manual `\Cref{thm-attention-coupl
 
 (Three spaces, not a tab; the second item-2 equation also gets 3 spaces because it's also continuation of item 2's body.) AUTHORING §1.6 now documents this convention. Same pattern applies at §B.3. No pipeline change needed.
 
+**`𝒜` (U+1D49C MATHEMATICAL SCRIPT CAPITAL A) used outside math mode — renders as missing-glyph box.** AUTHORING §2.8 (just landed) covers the rule: TeX Gyre Termes lacks math-script-letter glyphs, so calligraphic A in prose needs `$...$` wrapping. The build's compile log shows multiple "Missing character: There is no 𝒜 (U+1D49C) in font" warnings. Same shape across all 7 sites — `κ × 𝒜 factorization` should become `$\kappa \times \mathcal{A}$ factorization`:
+
+- `src/01-introduction.md:17` — `κ × 𝒜 factorization`
+- `src/05-track2-fisher-rao.md:67` — same
+- `src/06-discussion.md:87, 115, 117` — same shape, three sites
+- `src/08-limitations-conclusion.md:23` — same
+- `src/B-hypothesis-verification.md:60` — same
+
+The bare-`κ` (U+03BA, Greek small letter kappa) in those phrases renders fine — Greek letters are in TeX Gyre Termes. Only the script-A needs wrapping. Search-and-replace pattern: `κ × 𝒜 ` → `$\kappa \times \mathcal{A}$ ` should sweep all sites cleanly. Verifies via `grep "Missing character" out/full-paper.log` after rebuild.
+
 **Smart-quote vs `$` — not actually broken in PDF.** Your post-revert verification reported smart-quote conversion failing in §C numerical-comparison appendix. Hex-dump of pdftotext output for the σpost√2I phrase shows `e2 80 9c` and `e2 80 9d` — UTF-8 encodings of U+201C / U+201D (proper curly quotes). The intermediate `out/full-paper.tex` has `` ``$\sigma\sqrt{2I}$'' `` ligature form that lualatex renders to typographic curly quotes. Likely explanation: the PDF viewer or pdftotext setting in your local view is rendering UTF-8 curly quotes as straight glyphs. The actual rendered output is correct. Keep the post-revert ASCII `"` form. If you can confirm via a different viewer or hex-dump on your end and the curly bytes are missing, please update with the new evidence.
 
 ---
