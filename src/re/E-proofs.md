@@ -4,7 +4,7 @@ This appendix collects full proofs deferred from §4–§5 of the main text. Pro
 
 ### Track 1 cascade — full derivation ^sec-track1-proof
 
-The umbrella theorem's Track 1 instantiation (Theorem [[#^thm-umbrella]] under (H1) + (H2$'$)) follows from a two-step composition: chain rule on the post-update law, then slice-wise Talagrand $T_2$.
+The umbrella theorem's Track 1 instantiation ([[#^thm-umbrella]] under (H1) + (H2$'$)) follows from a two-step composition: chain rule on the post-update law, then slice-wise Talagrand $T_2$.
 
 > [!proof]
 > *Step 1 — Chain rule of relative entropy on the post-update law.* By \citet[Theorem 2.5.3]{cover-thomas-2006-info-theory} applied to the conditional law of $M_{\tau^+}$ given $(e_\tau, M_{\tau^-})$ marginalized over $G$:
@@ -50,7 +50,7 @@ The constant $\sqrt{2}$ emerges from the second-order coefficient $\tfrac{1}{2}$
 
 ### No-go on Euclidean chart norms — full proof ^sec-no-go-proof
 
-Theorem [[#^thm-no-go]]'s proof uses a chart-rescaling lemma plus a one-line consequence.
+[[#^thm-no-go]]'s proof uses a chart-rescaling lemma plus a one-line consequence.
 
 > [!lemma] Chart-rescaling sensitivity of Euclidean displacement ^lem-chart-rescaling
 > Let $\mathcal{M}$ be a statistical manifold and $\phi: U \to \mathbb{R}^d$ a chart on an open set $U \subseteq \mathcal{M}$. For any $a > 0$, write $\phi_a := a\phi$ for the rescaled chart. For every pair of probability laws $\mu, \nu$ on $U$ (in particular, the goal-conditional and goal-marginal post-update laws of [[#^eq-bias-quantity]]):
@@ -76,7 +76,7 @@ The proof avoids type-shifts between Dirac points and pushforward laws, never in
 
 ### Čencov uniqueness and sharpness — full proof ^sec-fr-uniqueness-proof
 
-Theorem [[#^thm-fr-uniqueness]] has two parts.
+[[#^thm-fr-uniqueness]] has two parts.
 
 > [!proof]
 > *Proof of (a) — Uniqueness of the metric.* (PI) + (R) invokes Čencov's uniqueness theorem \cite{cencov-1982-stat-decision} (modern treatment \citealt[Theorem 5.1]{ay-2017-information}): on $\mathcal{M}$, the Fisher information metric $\mathbf{I}$ is the unique (up to a global positive scalar $c > 0$) Riemannian metric invariant under Markov morphisms. Write $d_{\mathcal{M}} = \sqrt{c}\,d_{FR}$ where $d_{FR}$ is at the Amari-Nagaoka normalization $\mathbf{I}(\theta) = -\mathbb{E}[\nabla^2 \log p_\theta]$. The KL-to-Fisher second-order expansion (\citealt{amari-nagaoka-2000-info-geom} §3.7 Theorem 3.1) gives $\mathrm{KL}(P_\theta \| P_{\theta+\delta}) = \tfrac{1}{2} d_{FR}^2 + O(d_{FR}^3)$, so $\tfrac{1}{2}d_{\mathcal{M}}^2 = (c/2)d_{FR}^2 + O(d_{FR}^3)$. Constraint (K) requires $\tfrac{1}{2}d_{\mathcal{M}}^2$ agree with $\mathrm{KL}$ at second order, forcing $c = 1$ and $d_{\mathcal{M}} = d_{FR}$.
