@@ -7,6 +7,7 @@
 | § | Type         | Slug                                                            | Title                                                       | Stage |
 |---|--------------|-----------------------------------------------------------------|-------------------------------------------------------------|-------|
 | 1 | Section      | [intro](src/re/01-introduction.md)                              | Introduction                                                | draft |
+| 2 | Section      | [related-work](src/re/02-related-work.md)                       | Related Work                                                | draft |
 | 3 | Section      | [setup](src/re/03-setup.md)                                     | Setup                                                       | draft |
 | 4 | Section      | [main-results](src/re/04-main-results.md)                       | Main Results                                                | draft |
 | 5 | Section      | [mechanism](src/re/05-mechanism.md)                             | Mechanism                                                   | draft |
