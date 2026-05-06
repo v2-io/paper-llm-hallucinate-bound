@@ -4,18 +4,18 @@
 
 ---
 
-## Migration in-flight (agent #3, 2026-05-05)
+## Migration milestone — landed 2026-05-05 (agent #3)
 
-Working tasks tracked in the agent's TaskList; milestones surface here once landed and tracked durably:
+All scaffolding + body + appendices + manifests + citation canonicalization landed:
 
 - [x] Scaffolding milestone (dirs + `.gitignore` + `meta.md` + `LOG.md` + this file).
-- [ ] Body segments §1–§8 from `paper-draft.md` → `src/01-introduction.md` ... `src/08-limitations-conclusion.md`. Default boundary: one segment per top-level section.
-- [ ] Appendix segments A–D → `src/A-failed-routes.md` + `src/B-hypothesis-verification.md` + `src/C-conjugate-gaussian-numerics.md` + `src/D-parametric-euclidean-translations.md`. Per-letter granularity; sub-headings (B.1–B.3, D.1–D.3) live inside their letter segments.
-- [ ] Manifests: `OUT.full-paper.md` (everything) + `OUT.neurips-2026-paper.md` (9pp budget — comfortable per OUTLINE risk register; manifest may be near-identical to full-paper, with §A.4 / §6.1 / §6.5 candidates for selective omission *only if* the build reports overage; per AUTHORING §7.2 the path is row-comment via `<!-- | ... | -->` rather than segment-level cuts).
-- [ ] Citation migration via `bin/migrate-cites` (signed off per `PIPELINE-TODO.md §C1.4`). Pilot on §1 first; bulk-apply per segment; ambiguous matches and missing keys flagged below.
-- [ ] Build verification: `bin/build 03-llm-hallucinate-bound OUT.full-paper.md` + `OUT.neurips-2026-paper.md`. Visual confirm.
-- [ ] `prior-art/` port from old workspace (`query.md`, `report.md`, `positioning.md`).
-- [ ] Final commit + push to `v2-io/paper-llm-hallucinate-bound`.
+- [x] Body segments §1–§8 from `paper-draft.md` → `src/01-introduction.md` ... `src/08-limitations-conclusion.md`. One segment per top-level section.
+- [x] Appendix segments A–D → `src/A-failed-routes.md` + `src/B-hypothesis-verification.md` + `src/C-conjugate-gaussian-numerics.md` + `src/D-parametric-euclidean-translations.md`. Per-letter granularity.
+- [x] Manifests: `OUT.full-paper.md` (everything) + `OUT.neurips-2026-paper.md` (9pp budget). Both build clean; per OUTLINE risk register page-fit is comfortable at 9 pages, no rows commented out at migration time.
+- [x] Citation conversion done at authoring time (`[Author Year]` → `\cite{key}` directly). Cite-key canonicalization via `/tmp/cite-canonicalize.rb` mapping speculative keys to `refs/entries/` canonical form: 145 replacements across 13 segment files; `bin/refs emit 03-llm-hallucinate-bound` writes `refs.bib` (472 lines, ~55 keys). 4 keys still missing from `refs/entries/` — see "Citation migration" section below.
+- [x] Build verification: `bin/build 03-llm-hallucinate-bound full-paper` + `bin/build 03-llm-hallucinate-bound neurips-2026-paper` both clean. Visual PDF confirm: title renders correctly, body italics + em-dashes + special chars (Čencov, Iñigo, σ) typeset clean, display equations + theorem callouts + cross-refs resolve, anonymized author block, four `[?]` superscripts visible for the missing-keys flagged below.
+- [x] `prior-art/` port from old workspace (`query.md`, `report.md`, `positioning.md`).
+- [x] Final commit + push to `v2-io/paper-llm-hallucinate-bound`.
 
 ---
 
