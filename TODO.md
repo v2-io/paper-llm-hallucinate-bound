@@ -54,6 +54,20 @@ The bare-`κ` (U+03BA, Greek small letter kappa) in those phrases renders fine �
 
 ---
 
+## Abstract — back-burnered until paper reshape lands (Joseph, 2026-05-06)
+
+The current abstract in `meta.md` reflects the paper's accumulated pre-reshape shape — bolted-on defensive parentheticals, internal-scaffolding qualifiers, three named universal constants where the spine has one, conjugate-Gaussian Euclidean detail, §-number forward-references. Working assumption: rewrite to match the reshaped paper's spine *after* §1–§6 land in `src/re/`. If this means resubmitting a corrected abstract as an OpenReview correction (since the original was submitted 2026-05-05), so be it.
+
+Specific defects already noted for the rewrite:
+
+- First-sentence parenthetical `(positive results showing achievable negligibility exist as a counter-current; §7.1 surveys both directions)` is hedge + forward-ref noise. Cut.
+- "under standard regularity conditions and *independent of any architectural-class commitment*" — internal scaffolding. Goes to §4 Main Results, not abstract.
+- Three universal constants foregrounded ($\sqrt{2}$ + $\pi/\sqrt{2}$ + $1/\sqrt{2}$). Per VISION.md, only Track 2's $\sqrt{2}$ + the no-go is spine; backstops are appendix.
+- Conjugate-Gaussian Euclidean prefactor detail belongs in appendix, not abstract.
+- Target shape: ~5 sentences / ~150 words / one clean question-bound-track-architecture arc.
+
+---
+
 ## Migration milestone — landed 2026-05-05 (agent #3)
 
 All scaffolding + body + appendices + manifests + citation canonicalization landed:
