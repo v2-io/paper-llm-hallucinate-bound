@@ -4,10 +4,11 @@
 
 *Companion manifest `OUT.neurips-2026-paper.md` will hold the 9-pp-budget subset (per AUTHORING §7.2 reuse-over-re-edit — same `src/` segments, different selection / ordering).*
 
-*Work-in-progress: §1–§3 ported. Sections will be added as they migrate. See `TODO.md` for status.*
+*Work-in-progress: §1–§4 ported. Sections will be added as they migrate. See `TODO.md` for status.*
 
 | § | Type     | Slug                                                            | Title                                                       | Stage |
 |---|----------|-----------------------------------------------------------------|-------------------------------------------------------------|-------|
 | 1 | Section  | [intro](src/01-introduction.md)                                 | Introduction                                                | draft |
 | 2 | Section  | [setup](src/02-setup.md)                                        | Setup — belief-goal-coupled architectures + bias quantity   | draft |
 | 3 | Section  | [track1-transport](src/03-track1-transport.md)                  | Track 1 — transport-inequality cascade                      | draft |
+| 4 | Section  | [no-go](src/04-no-go.md)                                        | No-go on Euclidean chart norms                              | draft |
