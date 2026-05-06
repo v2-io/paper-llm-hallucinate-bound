@@ -26,13 +26,21 @@ For deterministic update mechanisms the distributional definition [[#^eq-bias-qu
 
 Whether $f_X^M$ has a non-trivial $G$ dependence at all is a structural property of the architecture. Following the Pearl-blanket reading of the Markov-blanket apparatus articulated by Bruineberg et al. \cite{bruineberg-dolega-dewhurst-baltieri-2022-bbs}, we partition architectures by the conditional-independence structure of their internal processing graph — specifically, whether $G$ has a causal path into the belief-update computation. The partition is monotonic in coupling strength and we call it the architecture's *Goal/Update Coupling Class* (or simply *Class*).
 
-> [!table] Goal/Update Coupling Class — partition of architectures by conditional-independence structure. ^tab-class-partition
->
-> | Class                       | Goal/update coupling                                                                  | Topology                                                                                       | Examples                                                  |
-> |-----------------------------|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
-> | **Class 1 (Separated)**     | Holds by construction — the estimator has no causal path from $G$                     | Separate estimator and planner connected through a state-estimate interface                    | Kalman filter + LQR; modular RL with separate world model |
-> | **Class 2 (Partial)**       | Holds for some pathways, fails for others                                             | Some shared infrastructure, some separate pathways                                             | Biological cortex; hybrid systems with separate preprocessing |
-> | **Class 3 (Coupled)**       | Fails by construction — $G$ is causally upstream of every computation                 | Single mechanism handles both belief-update and goal-conditioned processing                    | Transformer LLM (attention processes goals and observations together — [[#^thm-attention-coupled]]) |
+{::nomarkdown}\begin{table}[h]
+  \centering
+  \caption{Goal/Update Coupling Class --- partition of architectures by conditional-independence structure.}
+  \label{tab-class-partition}
+  \small
+  \begin{tabularx}{\textwidth}{@{}l X X X@{}}
+    \toprule
+    Class & Goal/update coupling & Topology & Examples \\
+    \midrule
+    \textbf{Class 1 (Separated)} & Holds by construction --- the estimator has no causal path from $G$ & Separate estimator and planner connected through a state-estimate interface & Kalman filter + LQR; modular RL with separate world model \\
+    \textbf{Class 2 (Partial)} & Holds for some pathways, fails for others & Some shared infrastructure, some separate pathways & Biological cortex; hybrid systems with separate preprocessing \\
+    \textbf{Class 3 (Coupled)} & Fails by construction --- $G$ is causally upstream of every computation & Single mechanism handles both belief-update and goal-conditioned processing & Transformer LLM (attention processes goals and observations together --- \Cref{thm-attention-coupled}) \\
+    \bottomrule
+  \end{tabularx}
+\end{table}{:/nomarkdown}
 
 The partition is structural, not parametric. In Class 1 (Separated), no goal information reaches the belief update under any task distribution. In Class 3 (Coupled), the goal is part of the input to the same mechanism that processes the evidence — every internal computation has a directed-graph path from the goal. Class 2 (Partial) is genuinely intermediate: the same hybrid architecture may be more or less goal-coupled under different distributions of tasks. The numbering is monotonic in coupling strength: more goal-coupling means higher Class.
 

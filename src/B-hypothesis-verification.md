@@ -10,7 +10,7 @@ This appendix collects the regularity-condition verifications referenced in [[#^
 
 $$\mathrm{Ent}_{P_{M_{\tau^+} \mid e, M_{\tau^-}}}(f^2) \;\leq\; \tfrac{2}{\rho_{\text{post}}}\,\mathbb{E}_{P_{M_{\tau^+} \mid e, M_{\tau^-}}}[\Vert\nabla f\Vert^2] \quad \text{for all sufficiently smooth } f,$$
 
-then by \citet[Theorem 1]{otto-villani-2000-jfa}, (H2$'$) holds with $C_{T_2} = 2/\rho_{\text{post}}$. A sufficient condition for LSI, by Bakry-Émery's curvature-dimension criterion \cite{bakry-1985-diffusions}, is $K$-strong log-concavity of the post-update density: $-\nabla^2 \log p_{M_{\tau^+}\mid e, M_{\tau^-}} \succeq K \cdot I$ for some $K > 0$, giving $\rho_{\text{post}} \geq K$.
+then by \citealt[Theorem 1]{otto-villani-2000-jfa}, (H2$'$) holds with $C_{T_2} = 2/\rho_{\text{post}}$. A sufficient condition for LSI, by Bakry-Émery's curvature-dimension criterion \cite{bakry-1985-diffusions}, is $K$-strong log-concavity of the post-update density: $-\nabla^2 \log p_{M_{\tau^+}\mid e, M_{\tau^-}} \succeq K \cdot I$ for some $K > 0$, giving $\rho_{\text{post}} \geq K$.
 
 **Hypothesis (S) — own proof of strong log-concavity for Bayesian post-updates.** When the post-update law is itself a Bayesian posterior with negative log-likelihood $\Phi(\theta;\omega)$ and prior density $\pi(\theta)$, the posterior negative log-density is $U(\theta;\omega) = \Phi(\theta;\omega) - \log\pi(\theta)$. Strong log-concavity of the posterior is a *direct* statement about the Hessian-in-$\theta$ of $U$: $\nabla^2_\theta U(\theta;\omega) \succeq K_{\text{eff}}\cdot I$ uniformly in $\omega \in \Omega$, for some $K_{\text{eff}} > 0$. Two clean sufficient conditions:
 
