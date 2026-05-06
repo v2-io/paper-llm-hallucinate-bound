@@ -26,7 +26,7 @@ Plain decoder-only transformer attention is *Class 3 (Coupled) by construction* 
 
 **Contributions.**
 
-1. **An architectural classification.** Goal/Update Coupling Class — Class 1 (Separated), Class 2 (Partial), Class 3 (Coupled) — partitions architectures monotonically by goal-update topology, grounded in the Pearl-blanket reading \cite{bruineberg-dolega-dewhurst-baltieri-2022-bbs} of the Markov-blanket apparatus. Lemma [[#^lem-attention-coupled]] derives Class 3 status for transformer attention from connectivity alone.
+1. **An architectural classification.** Goal/Update Coupling Class — Class 1 (Separated), Class 2 (Partial), Class 3 (Coupled) — partitions architectures monotonically by goal-update topology, grounded in the Pearl-blanket reading \cite{bruineberg-dolega-dewhurst-baltieri-2022-bbs} of the Markov-blanket apparatus. [[#^lem-attention-coupled]] derives Class 3 status for transformer attention from connectivity alone.
 
 2. **An umbrella upper bound** [[#^eq-umbrella-informal]] on goal-conditional displacement of the post-update model state, derived via chain rule on the post-update law. Two named tracks supply $C$ — a transport-inequality cascade (Track 1) and a Fisher-Rao geometry route (Track 2).
 
@@ -34,4 +34,4 @@ Plain decoder-only transformer attention is *Class 3 (Coupled) by construction* 
 
 4. **An architectural-corollary form** [[#^eq-arch-corollary-informal]] under (H$_\kappa$), recovering the κ × 𝒜 factorization that gives the bound its operational reading.
 
-Section [[#^sec-setup]] sets up the architectures and the (PI), (R), (K) axioms. Section [[#^sec-main-results]] states the umbrella theorem with both tracks, the no-go, and the architectural corollary. Section [[#^sec-mechanism]] sketches the mechanism — both proofs flow from the post-update chain rule. Limitations and the bound's relation to the frequency-lower-bound lineage are in Section [[#^sec-conclusion]].
+[[#^sec-setup]] sets up the architectures and the (PI), (R), (K) axioms. [[#^sec-main-results]] states the umbrella theorem with both tracks, the no-go, and the architectural corollary. [[#^sec-mechanism]] sketches the mechanism — both proofs flow from the post-update chain rule. Limitations and the bound's relation to the frequency-lower-bound lineage are in [[#^sec-conclusion]].
