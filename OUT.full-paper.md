@@ -4,7 +4,7 @@
 
 *Companion manifest `OUT.neurips-2026-paper.md` will hold the 9-pp-budget subset (per AUTHORING §7.2 reuse-over-re-edit — same `src/` segments, different selection / ordering).*
 
-*Work-in-progress: §1–§5 ported. Sections will be added as they migrate. See `TODO.md` for status.*
+*Work-in-progress: §1–§6 ported. Sections will be added as they migrate. See `TODO.md` for status.*
 
 | § | Type     | Slug                                                            | Title                                                       | Stage |
 |---|----------|-----------------------------------------------------------------|-------------------------------------------------------------|-------|
@@ -13,3 +13,4 @@
 | 3 | Section  | [track1-transport](src/03-track1-transport.md)                  | Track 1 — transport-inequality cascade                      | draft |
 | 4 | Section  | [no-go](src/04-no-go.md)                                        | No-go on Euclidean chart norms                              | draft |
 | 5 | Section  | [track2-fisher-rao](src/05-track2-fisher-rao.md)                | Track 2 — universal Fisher-Rao constant under (PI)+(R)+(K)  | draft |
+| 6 | Section  | [discussion](src/06-discussion.md)                              | Discussion                                                  | draft |
