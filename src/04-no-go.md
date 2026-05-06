@@ -2,7 +2,7 @@
 
 Track 1 delivers a constant under three regularity hypotheses — but the constant carries the domain-specific parameters $L_{\text{post}}$ and $\rho_{\text{LSI}}$. We now ask the natural follow-up: is there a stronger statement, a *coordinate-independent universal* constant — independent of the geometry of $\mathcal{M}$, of the parameterization, and of the coupled-update structure — that works in some natural ambient norm?
 
-The natural ambient norm to try is Euclidean-on-parameters: identify the parameter manifold $\mathcal{M}$ with a subset of $\mathbb{R}^d$ via a chart and measure $\Vert\Delta M_{\text{bias}}\Vert$ as the Euclidean distance in that chart. The answer is *no* in the following sharp sense: any candidate universal constant must depend on the chart, because rescaling the chart (a change of parameterization that the underlying geometry treats as identity) inflates the Euclidean displacement without changing any information-theoretic or geometric quantity in the bound.
+The natural ambient norm to try is Euclidean-on-parameters: identify the parameter manifold $\mathcal{M}$ with a subset of $\mathbb{R}^d$ via a chart and measure $\|\Delta M_{\text{bias}}\|$ as the Euclidean distance in that chart. The answer is *no* in the following sharp sense: any candidate universal constant must depend on the chart, because rescaling the chart (a change of parameterization that the underlying geometry treats as identity) inflates the Euclidean displacement without changing any information-theoretic or geometric quantity in the bound.
 
 ### Chart-rescaling lemma + no-go theorem ^sec-no-go-lemma-thm
 
@@ -19,12 +19,12 @@ The cleanest form of the no-go is structural — a chart-rescaling lemma plus a 
 > [!theorem] No coordinate-independent universal Euclidean-chart constant ^thm-no-go
 > Suppose there were a constant $C_0 < \infty$ — independent of any chart on any statistical manifold $\mathcal{M}$ — such that for every chart $\phi$ on $\mathcal{M}$ and every goal-coupled architecture satisfying (H1) + (H2$'$) with some non-zero post-update displacement, [[#^eq-no-go-hyp]] holds. Then no such $C_0$ exists.
 
-$$\Vert\Delta M_{\text{bias}}\Vert_{\mathrm{Eucl},\,\phi} \;\leq\; C_0 \cdot \sqrt{\,I(G;\,M_{\tau^+} \mid e_\tau,\, M_{\tau^-})\,}.$$ ^eq-no-go-hyp
+$$\|\Delta M_{\text{bias}}\|_{\mathrm{Eucl},\,\phi} \;\leq\; C_0 \cdot \sqrt{\,I(G;\,M_{\tau^+} | e_\tau,\, M_{\tau^-})\,}.$$ ^eq-no-go-hyp
 
 > [!proof]
-> For any architecture realizing $W_2^\phi(P_{M_{\tau^+}\mid G,e,M_{\tau^-}}, P_{M_{\tau^+}\mid e,M_{\tau^-}}) > 0$ and finite positive transferred information, applying [[#^eq-no-go-hyp]] under the rescaled chart $\phi_a$ gives, by [[#^lem-chart-rescaling]], that [[#^eq-no-go-contradiction]] holds with the right-hand side unchanged across charts. Taking $a \to \infty$ contradicts the fixed $C_0 \sqrt I$ on the right. The same conclusion holds for the architectural-corollary form $C\cdot\sqrt{\kappa_{\text{processing}}\cdot I(G;\Omega\mid e, M)}$ under (H$_\kappa$): both sides of the corollary inherit [[#^lem-chart-rescaling]]'s chart-(non)invariance, and the contradiction goes through verbatim. $\square$
+> For any architecture realizing $W_2^\phi(P_{M_{\tau^+}| G,e,M_{\tau^-}}, P_{M_{\tau^+}| e,M_{\tau^-}}) > 0$ and finite positive transferred information, applying [[#^eq-no-go-hyp]] under the rescaled chart $\phi_a$ gives, by [[#^lem-chart-rescaling]], that [[#^eq-no-go-contradiction]] holds with the right-hand side unchanged across charts. Taking $a \to \infty$ contradicts the fixed $C_0 \sqrt I$ on the right. The same conclusion holds for the architectural-corollary form $C\cdot\sqrt{\kappa_{\text{processing}}\cdot I(G;\Omega| e, M)}$ under (H$_\kappa$): both sides of the corollary inherit [[#^lem-chart-rescaling]]'s chart-(non)invariance, and the contradiction goes through verbatim. $\square$
 
-$$a \cdot \Vert\Delta M_{\text{bias}}\Vert_{\mathrm{Eucl},\,\phi} \;=\; \Vert\Delta M_{\text{bias}}\Vert_{\mathrm{Eucl},\,\phi_a} \;\leq\; C_0\sqrt{I}.$$ ^eq-no-go-contradiction
+$$a \cdot \|\Delta M_{\text{bias}}\|_{\mathrm{Eucl},\,\phi} \;=\; \|\Delta M_{\text{bias}}\|_{\mathrm{Eucl},\,\phi_a} \;\leq\; C_0\sqrt{I}.$$ ^eq-no-go-contradiction
 
 The lemma is the clean statement; [[#^thm-no-go]] is the one-line consequence. The proof avoids type-shifts between Dirac points and pushforward laws, never invokes (H2$'$)-violating two-point constructions, and does not assert any specific value of $I$ — it only uses that some architecture realizes finite positive $W_2^\phi$ and finite positive $I$, which is automatic on any non-trivial goal-coupled architecture (for instance, the conjugate-Gaussian example of [[#^sec-track1-conjugate-gauss]] with any $\sigma, \tau > 0$ and a non-degenerate continuous goal distribution).
 
