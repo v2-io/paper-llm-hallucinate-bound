@@ -7,4 +7,5 @@
 | § | Type         | Slug                                                            | Title                                                       | Stage |
 |---|--------------|-----------------------------------------------------------------|-------------------------------------------------------------|-------|
 | 1 | Section      | [intro](src/re/01-introduction.md)                              | Introduction                                                | draft |
+| 3 | Section      | [setup](src/re/03-setup.md)                                     | Setup                                                       | draft |
 | – | Bibliography | [references](src/references.md)                                 | References                                                  | draft |
