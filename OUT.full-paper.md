@@ -4,7 +4,7 @@
 
 *Companion manifest `OUT.neurips-2026-paper.md` will hold the 9-pp-budget subset (per AUTHORING §7.2 reuse-over-re-edit — same `src/` segments, different selection / ordering).*
 
-*Work-in-progress: §1–§8 + bibliography row ported; appendices A–D pending. See `TODO.md` for status.*
+*Body §1–§8 + bibliography + appendices A–D ported. See `TODO.md` for residual handoff to per-paper agent.*
 
 | § | Type     | Slug                                                            | Title                                                       | Stage |
 |---|----------|-----------------------------------------------------------------|-------------------------------------------------------------|-------|
@@ -17,3 +17,7 @@
 | 7 | Section  | [related-work](src/07-related-work.md)                          | Related work                                                | draft |
 | 8 | Section  | [limitations](src/08-limitations-conclusion.md)                 | Limitations and conclusion                                  | draft |
 | – | Bibliography | [references](src/references.md)                             | References                                                  | draft |
+| A | Appendix | [failed-routes](src/A-failed-routes.md)                         | Failed routes                                               | draft |
+| B | Appendix | [hypothesis-verification](src/B-hypothesis-verification.md)     | Hypothesis verification details                             | draft |
+| C | Appendix | [conjugate-gauss-numerics](src/C-conjugate-gaussian-numerics.md) | Conjugate-Gaussian numerical comparison                    | draft |
+| D | Appendix | [parametric-euclidean](src/D-parametric-euclidean-translations.md) | Generalized parametric Euclidean translations            | draft |
