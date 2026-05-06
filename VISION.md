@@ -16,17 +16,20 @@ The reshape is not "trim 27pp to 9pp" — that framing drove much of the prior a
 
 ---
 
-## What the exemplar teaches
+## What the exemplars teach
 
-\citet{jin-yang-wang-jordan-2020} fits ~30 pages of dense linear-algebra-rich argument into an 8-page main body. The discipline that makes this work:
+The umbrella `OUTLINE-STRATEGY.md` now references two math-heavy theory papers — \citet{jin-yang-wang-jordan-2020} *Provably Efficient RL with Linear Function Approximation* and \citet{jin-allenzhu-bubeck-jordan-2018} *Is Q-learning Provably Efficient?* — both of which fit ~30+ pages of dense argument into 8-page main bodies. The disciplines that make this work, distilled:
 
-1. **The informal main result lands in the introduction**, in plain English, before the reader has met the notation. Reviewers who don't read past §1 still know what the paper claims.
-2. **Preliminaries are strict-minimalist**: every definition that appears in §3 is referenced in either the main theorem statement or the algorithm pseudocode. Definitions used only in proofs go to appendix.
-3. **The main result is followed immediately by Remarks** — bulleted, plain-English, "what does this number actually say?" interpretive comments. Without Remarks, formal theorems function as black boxes; with them, the math becomes intuition-restoring.
-4. **The Mechanism section narrates the proof strategy** rather than executing it. One or two Key Lemmas are surfaced formally; everything else is deferred with explicit pointer ("the full proof of Lemma 2, requiring a covering argument over the feature space, is Appendix B"). The reader gets a felt sense of the proof without the derivations.
-5. **The appendix is unlimited and is where the paper lives for a verification-grade reviewer**. The main text's job is to make the appendix feel necessary; the appendix's job is to be airtight.
+1. **The informal main result lands in the introduction**, in plain English with simplified big-$\mathcal{O}$ notation, before the reader has met the formal notation. Reviewers who don't read past §1 still know what the paper claims.
+2. **Preliminaries are strict-minimalist**: every definition that appears in §3 is referenced in either the main theorem statement or the algorithm pseudocode. Definitions used only in proofs go to appendix. Formal assumptions are stated inside numbered `\begin{assumption}...\end{assumption}` (or `[!hypothesis]` callouts in our authoring) followed by *plain-English unpacking right after the formal statement*.
+3. **The main result is followed immediately by Remarks** — bulleted or paragraph-form, plain-English, "what does this number actually say?" interpretive comments. Without Remarks, formal theorems function as black boxes; with them, the math becomes intuition-restoring. This is the single most important structural pattern for math-density management.
+4. **The Mechanism section narrates the proof strategy** rather than executing it. One or two Key Lemmas are surfaced formally; everything else is deferred with explicit pointer ("the full proof of Lemma 2, requiring a covering argument over the feature space, is Appendix B"). Mid-paragraph: narratively explain an algebraic step ("approximately speaking, the last 1/H fraction of indices is given non-negligible weights"), don't execute it.
+5. **The Conclusion connects back to the opening narrative gap.** The §1 question gets revisited; takeaways are practitioner-aimed; limitations and future work are openly discussed without defensiveness.
+6. **The appendix is unlimited and is where the paper lives for a verification-grade reviewer**. The main text's job is to make the appendix feel necessary; the appendix's job is to be airtight. Each appendix section opens with a structural entry-point ("In this section, we prove Theorem 3.1. We first introduce notation; then present lemmas and their proofs; finally combine the lemmas to prove the theorem.").
 
-The applicability to B-N8 is direct. We have a math-density profile comparable to the exemplar (heavier in some respects). The 18-page main-body excess is *because* we currently do step-by-step algebra in main text and surface every theorem variant equally; the exemplar discipline closes that gap structurally, not by content cuts.
+**Adaptation for B-N8.** Both exemplars have an "Algorithm" central to the paper (LSVI-UCB / Q-learning with UCB). Our paper is pure theory — there's no algorithm to present. So §4 in our reshape is *Main Results* without algorithm pseudocode; the Remarks-after-theorem pattern carries the unpacking work that pseudocode-plus-intuition does in the exemplars. Otherwise the blueprint maps directly.
+
+The applicability to B-N8 is direct. We have a math-density profile comparable to the exemplars (heavier in some respects). The 18-page main-body excess is *because* we currently do step-by-step algebra in main text and surface every theorem variant equally; the exemplar discipline closes that gap structurally, not by content cuts. **Three condensation moves** (per OUTLINE-STRATEGY): audit main text for proofs longer than 3 lines (move to appendix; replace with proof-sketch paragraph); audit Preliminaries (move definitions not directly referenced in main theorem to appendix); use Remarks heavily after theorems (bridge dense math to intuitive claims).
 
 ---
 
