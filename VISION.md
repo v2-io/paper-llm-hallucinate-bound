@@ -76,10 +76,11 @@ A reader finishing the main text can name the spine theorems. The appendix exist
 
 These need attention before or during the reshape — flagging so the structural commitment doesn't lock in a framing that gets undermined by a substantive correction:
 
-- **Truth/Strength items Joseph mentioned** (paraphrased): we need to fix some Truth/Strength things alongside the Wisdom/Beauty work. I don't have the specific list yet — to be enumerated in the next discussion.
 - **The four missing bibkeys** (lie-sullivan-teckentrup-2017 / parr-dacosta-friston-2019 / su-kempe-ullrich-2024 / wu-grama-szpankowski-2024) need adding via `bin/refs add` before the reshape commits to a related-work framing that depends on them.
 - **The empirical $\hat\kappa_{\text{processing}}$ estimator** (currently a brief mention in §2.3) — decide whether it stays brief in main text, moves to appendix, or gets formalized further. Affects the operational-reading framing.
 - **The (H$_\kappa$) at-architectural-vs-operating-level distinction** — currently a §6.4 defensive subsection. Under the reshape it goes to appendix. Verify that's the right call before committing.
+
+(Joseph confirmed 2026-05-06: no additional Truth/Strength items from his side.)
 
 ---
 
