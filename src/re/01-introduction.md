@@ -6,7 +6,7 @@ Bayesian inverse-problems theory in the lineage of \citet{stuart-2010-acta} has 
 
 Neither lineage engages the implicit belief-goal-coupling structure of attention-based architectures — a structure intrinsic to LLMs by construction ([[#^lem-attention-coupled]]), not an incidental property of training.
 
-Engaging this structure directly reframes the question: how much can an LLM be pulled away from what its evidence supports by the goal it is asked to satisfy? This paper bounds the displacement.
+Engaging this structure directly reframes the question: how much can an LLM be pulled away from what its evidence supports by the goal it is asked to satisfy? The empirical referent is *sycophancy* \citep{sharma-2023-sycophancy} — LLM outputs adjusting to match user-implied preferences — read as a goal-coupling-induced displacement on the response distribution; this paper bounds that displacement.
 
 *"Hallucination size," in this paper, means the goal-coupling-induced displacement of the model's evidence-conditioned belief state — not the semantic distance from a false output to truth.* The two are linked through the in-context-learning correspondence (with the scope and caveats noted at [[#^sec-attention-coupled]] and [[#^sec-conclusion]]) but are not identical objects. The frequency lineage and the size axis composed here are *complementary*: a coupled-architecture model in (PI)-compatible operating regime can simultaneously have an inevitable-frequency hallucination floor *and* a bounded-magnitude goal-coupling displacement on each event.
 
