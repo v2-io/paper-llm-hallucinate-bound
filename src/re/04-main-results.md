@@ -59,7 +59,7 @@ The no-go forces a coordinate-invariance commitment if a universal constant is w
 
 Proof in [[#^sec-fr-uniqueness-proof]]. Part (a) is Čencov's 1982 uniqueness theorem applied to $\mathcal{M}$: the Fisher information metric is the unique (up to global positive scalar) Riemannian metric invariant under Markov morphisms. Part (b) is direct verification on the conjugate-Gaussian saturation.
 
-**Remark.** Alternative chart-independent commitments (TV with Pinsker, Hellinger-as-divergence, $\chi^2$, Rényi) are all defeated: TV-Pinsker is non-tight (the constant is universal but the inequality is loose except at coincident measures); Hellinger-as-divergence and $\chi^2$-as-divergence violate (R); switching divergences on the right-hand side violates (K). Under the cascade structure (K) and the metric framing (R), the no-go ([[#^thm-no-go]]) tells us *exactly* what to commit to — (PI) — and the universal $\sqrt{2}$ falls out.
+**Remark.** Alternative chart-independent commitments (TV with Pinsker, Hellinger-as-divergence, $\chi^2$, Rényi) are all defeated: TV-Pinsker is non-tight (the constant is universal but the inequality is loose except at coincident measures); Hellinger-as-divergence and $\chi^2$-as-divergence violate (R); switching divergences on the right-hand side violates (K). The no-go ([[#^thm-no-go]]) rules out arbitrary chart-Euclidean norms, narrowing the candidate space to coordinate-invariant metrics; under the additional (PI)+(R)+(K) triple, Čencov uniqueness then selects Fisher-Rao + $\sqrt 2$.
 
 ### The architectural corollary ^sec-architectural-corollary
 
