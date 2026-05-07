@@ -490,9 +490,9 @@ The paper is missing the required NeurIPS Paper Checklist. Recipe + rationale dr
 
 A paper without the checklist is desk-rejected, so this needs to ship before submission.
 
-- [ ] Read `CHECKLIST.md` (this paper-dir).
-- [ ] Copy `common/checklist.tex` → `src/checklist.tex` and trim the instruction block per the recipe.
-- [ ] Fill in every answer (`\answerYes{}` / `\answerNo{}` / `\answerNA{}` + 1–2 sentence justification each, including for `\answerNA{}`).
-- [ ] Add the `Checklist` row as the last row of `OUT.llm-hallucinate-neurips-2026.md` (after Bibliography and Appendix rows).
-- [ ] Build and verify the checklist renders as the final pages of the PDF.
-- [ ] `git mv CHECKLIST.md _archive/CHECKLIST-2026-05-06.md` once accomplished.
+- [x] Read `CHECKLIST.md` (this paper-dir).
+- [x] Copy `common/checklist.tex` → `src/checklist.tex` and trim the instruction block per the recipe.
+- [x] Fill in every answer (`\answerYes{}` / `\answerNo{}` / `\answerNA{}` + 1–2 sentence justification each, including for `\answerNA{}`).
+- [x] Add the `Checklist` row as the last row of `OUT.llm-hallucinate-neurips-2026.md` (after Bibliography and Appendix rows).
+- [x] Build and verify the checklist renders as the final pages of the PDF.
+- [x] `git mv CHECKLIST.md _archive/CHECKLIST-2026-05-06.md` once accomplished.

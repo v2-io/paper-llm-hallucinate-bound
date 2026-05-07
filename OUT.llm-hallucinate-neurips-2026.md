@@ -19,3 +19,4 @@
 | D | Appendix     | [track2-companions](src/re/D-track2-companions.md)              | Track 2 companions and parametric Euclidean translations    | draft |
 | E | Appendix     | [proofs](src/re/E-proofs.md)                                    | Proofs of main results                                      | draft |
 | F | Appendix     | [related-work-extended](src/re/F-related-work-extended.md)      | Extended related work                                       | draft |
+| – | Checklist    | [checklist](src/checklist.tex)                                  | NeurIPS paper checklist                                     | draft |
