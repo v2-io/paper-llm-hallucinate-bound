@@ -4,6 +4,80 @@
 
 ---
 
+## Peer-feedback integration queue — 2026-05-06
+
+Three pieces of peer feedback came in on `paper-rc1.pdf`:
+- `audits/peer-review-from-01-tragedy-2026-05-06.md` (paper 1's author)
+- `PEER-REVIEW-FROM-B-CS1.md` (paper 2's author)
+- "Read-through notes" further down in this file (build-pipeline agent's PDF reading)
+
+Knock-out fixes already landed (commit-pending):
+
+- [x] **Abstract §7.1 forward-ref dropped.** Cut the parenthetical "(positive results showing achievable negligibility exist as a counter-current; §7.1 surveys both directions)" per Joseph's earlier directive in the *Abstract — back-burnered* section below + build-pipeline's confirmation. Minimum-touch fix; full abstract rewrite is item Q1 below.
+- [x] **`note:` field hygiene on three bib entries.** Cleared agent-meta `note:` content on `kallenberg-2002-foundations`, `gray-2011-entropy`, `wu-grama-szpankowski-2024`. Build-pipeline confirmed these were leaking working-note text into the rendered bibliography. Verified: `pdftotext out/re-paper.pdf | grep "Cited in\|field-standard\|deferred per source"` returns empty after rebuild.
+- [x] **Script-A glyph (𝒜) → `$\mathcal{A}$` sweep in `src/re/`.** Three sites: `01-introduction.md:35`, `04-main-results.md:80`, `B-hypothesis-verification.md:60`. Verified: `grep "Missing character" out/re-paper.log` returns 0 after rebuild. (Build-pipeline flagged this for old `src/`; same glyph was also in `src/re/`.)
+
+Substantive items queued below for your review before I act on them. Items grouped by where the recommendation came from + my own ideas from reading papers 1 and 2.
+
+### Q1. Abstract rewrite — full pass (was back-burnered, now appropriate to take on)
+
+The abstract has been queued for rewrite since the reshape ("see `## Abstract — back-burnered until paper reshape lands` further down). The reshape has now landed. All three peer reviews + your own earlier note converge on the rewrite being the highest-value polish item:
+
+- **Build-pipeline** (read-through note 1): "(positive results showing achievable negligibility...)" is hedge + forward-ref noise — *cut*. *(Done as knock-out, but full rewrite still pending.)*
+- **Paper 1 author**: Single paragraph carries five distinct constants ($C$, $\sqrt{2}$, $\pi/\sqrt{2}$, $1/\sqrt{2}$, $L_{\text{post}}\sigma$) plus their conditions. Possible move: leave abstract with umbrella bound + locally-tight $\sqrt{2}$ as the two visible faces; push global $\pi/\sqrt{2}$, Hellinger $1/\sqrt{2}$, and conjugate-Gaussian translation to §1.1 / §4.5.
+- **Paper 2 author**: ~14 technical tokens before motivation lands. Front-load the gap (frequency vs size) and the bridging move (chain rule on post-update law) more narratively. Constants and parameter names should appear only after the conceptual picture.
+- **Your spec from earlier (in this file below)**: "Target shape: ~5 sentences / ~150 words / one clean question-bound-track-architecture arc" + drop "independent of any architectural-class commitment" + drop conjugate-Gaussian Euclidean detail.
+
+**My recommendation.** Take the rewrite seriously — substantive enough that I want your read on the candidate before pushing. Plan: write 2 candidate abstracts (one Track-2-headline, one Class-ladder-headline per paper 2's Q4 below), commit both to `_abstract-candidates/`, you pick or revise.
+
+### Q2. Class 1/2/3 ladder as organizing principle for the abstract (paper 2's strongest suggestion)
+
+Paper 2's review argues the ladder "is gorgeous and IMO the paper's most durable structural contribution" — possibly *the organizing principle* of the abstract rather than item (1) of four contributions. Their proposed reframe (verbatim from the review):
+
+> "We show that architectures partition into a monotonic ladder of goal-update coupling classes (Separated / Partial / Coupled), and the upper bound `C·√I` applies across the ladder with `κ_processing` automatic for Class 1, named-structural for Class 2, and operational for Class 3 (which includes plain decoder-only transformer attention by construction)."
+
+**My recommendation.** Strong consider. The ladder framing makes the bound a property *of the ladder* rather than a standalone result, which sells the architectural-classification contribution alongside the bound. Risk: makes the paper feel like the ladder is the contribution, with the bound as supporting machinery — which inverts the actual emphasis. Paper 2's author may have read with their own "structural classification" lens (their Regime A/B/C identifiability ladder). **Right answer is probably to write both candidates (Track 2 headline / ladder-organizing) and feel the difference.**
+
+### Q3. Track 2 as headline (paper 2's other big suggestion)
+
+Currently abstract reads "Two routes deliver $C$" — parallel framing. Paper 2's argument: "Track 2 (Fisher-Rao + Čencov) is the paper's *novel* derivation, and Track 1 (transport-inequality cascade) is the connection-to-existing-Stuart-school-literature that demonstrates Track 2's bound is *consistent* with what's already known via a different route." Surfacing Track 2 as headline tightens the contribution narrative.
+
+**My recommendation.** Agree, but want to think about whether the parallel framing was intentional defensive ("not just a Stuart-school refresh"). The novelty story is genuinely Track 2 + the no-go forcing the (PI) commitment. Right answer is folding into Q1 abstract rewrite — Track 2 headline + Track 1 as bridge-to-prior-work + no-go as forcing.
+
+### Q4. Lift "displacement, not frequency" framing earlier in §1 (my idea, inspired by paper 2's §1.2 placement)
+
+Paper 2 puts a §1.2 Scope and Limitations *before* §2 Setup, defining "what 'convergence' means here" before the reader invests in technical machinery. Paper 3 has limitations only in §6 conclusion. The most likely first-pass reader misread is "this is yet another Kalai-Vempala restatement" — addressed by the orthogonal-axes statement in §1's first paragraph, but that statement is currently embedded in a longer Strand-1-then-Strand-2 setup. Lifting the "we bound a *displacement*, not a *frequency*" framing into a more visible position (could be §1.1 Scope subsection, or a dedicated paragraph in §1's opening) would give referees an early off-ramp from the misread.
+
+**My recommendation.** Modest reframe of §1's opening, ~½ paragraph addition or restructuring. Probably worth doing alongside the abstract rewrite (Q1) since both are positioning moves. Should be a self-contained edit.
+
+### Q5. Empirical / concrete instantiation in §4 main body (my idea, inspired by paper 1's Table 1)
+
+Paper 1 has a Table 1 in §4.4 (three-controller drift sweep) — concrete empirical anchor in main body that gives referees a "this is what the result looks like in numbers" hook beyond the math alone. Paper 3's conjugate-Gaussian numerical companion lives in Appendix C; main body has no concrete instantiation. A short "Concrete instantiation" paragraph at end of §4 — ~half-paragraph, no table needed in main body, just pointing to Appendix C with one or two illustrative numbers (e.g., "$L_{\text{post}}\sigma$ bounded by $\tau/2$ uniformly, vanishing in extreme observation-noise limits") — would give the same hook without spending a full table's worth of page-budget.
+
+**My recommendation.** Worth it for referee texture; ~½-paragraph addition in §4 + appropriate cross-ref to Appendix C. Low risk, modest payoff.
+
+### Q6. Parrot architecture parenthetical visibility (paper 1's flag #2)
+
+Paper 1 noticed that the parrot-architecture parenthetical ("$\kappa_{\text{processing}} = \infty$, excluded by scope") in §1 / §3 is doing real work — naming the worst-case witness AND excluding it AND admitting the exclusion — but currently lives mid-sentence where readers will skim past. Their suggestion: lift to a one-paragraph standalone in §1.1 or §3 alongside the (H_κ) introduction.
+
+**My recommendation.** Modest tweak. The parrot architecture is already discussed at appropriate depth in `src/re/B-hypothesis-verification.md` (Appendix B); the question is just whether the §3 forward-pointer to it is visible enough. Could do a one-line restructure: pull "the parrot architecture $M_{\tau^+} := G$ produces $\kappa_{\text{processing}} = \infty$, explicitly outside scope" out of the dense paragraph at `src/re/03-setup.md:31` and give it its own line as a forecasted pointer to Appendix B. Quick fix.
+
+### Q7. Fuller §2 cite-and-distinguish (my idea, inspired by paper 1's §2)
+
+Paper 1's §2 is fuller and more disciplined than paper 3's §2 (paper 3 routes detail to Appendix F to save body pages). Paper 3's §2 is intentionally compressed, but worth re-reading paper 1's §2 as a model when polishing §F.1 / §F.2. Lower priority — only worth touching if Q1-Q6 leave room and the body has page-budget margin.
+
+**My recommendation.** Defer. The compression is a deliberate choice given page budget; paper 1's §2 is right for paper 1's structure. Re-evaluate if §F.1 / §F.2 polish opens up.
+
+### What to act on without further confirmation, vs queue for review
+
+Already done: knock-outs at top of this section.
+
+If you say "go ahead, take a swing at all of Q1-Q6": I'll write 2 abstract candidates (Q1+Q2+Q3 folded together), do Q4 §1 reframe, do Q5 concrete-instantiation paragraph, do Q6 parrot-architecture lift. Defer Q7. Show you a diff before committing.
+
+If you say "just Q1, hold the rest": I'll write the 2 abstract candidates and stop there.
+
+---
+
 ## Read-through notes — 2026-05-06 (rc1 = `OUT.re-paper.md`)
 
 Read through `out/re-paper.pdf` carefully — front, several middle pages, last few of main text + references transition. The reshape from 30pp-body to 12pp-body is impressive; spine reads cleanly. A few reactions and suggestions:

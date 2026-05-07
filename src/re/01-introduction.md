@@ -32,6 +32,6 @@ Plain decoder-only transformer attention is *Class 3 (Coupled) by construction* 
 
 3. **A no-go that forces a coordinate commitment.** No coordinate-independent universal constant exists for Euclidean chart norms (a scale-family construction). Under the (PI) + (R) + (K) triple, Čencov's uniqueness theorem forces Fisher-Rao + $\sqrt{2}$ universally — no further freedom.
 
-4. **An architectural-corollary form** [[#^eq-arch-corollary-informal]] under (H$_\kappa$), recovering the κ × 𝒜 factorization that gives the bound its operational reading.
+4. **An architectural-corollary form** [[#^eq-arch-corollary-informal]] under (H$_\kappa$), recovering the $\kappa \times \mathcal{A}$ factorization that gives the bound its operational reading.
 
 [[#^sec-setup]] sets up the architectures and the (PI), (R), (K) axioms. [[#^sec-main-results]] states the umbrella theorem with both tracks, the no-go, and the architectural corollary. [[#^sec-mechanism]] sketches the mechanism — both proofs flow from the post-update chain rule. Limitations and the bound's relation to the frequency-lower-bound lineage are in [[#^sec-conclusion]].

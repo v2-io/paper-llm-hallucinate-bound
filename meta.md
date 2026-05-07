@@ -6,7 +6,7 @@ authors:
     email: joseph.wecker@gmail.com
 ---
 
-The dominant lineage in hallucination theory bounds *frequency* from below — calibrated LLMs *must* hallucinate at some rate (positive results showing achievable negligibility exist as a counter-current; §7.1 surveys both directions). We bound *size* from above: the goal-conditional displacement of the post-update model state from the goal-marginal, under coupled belief-goal inference. The two axes are orthogonal — how often versus how much an LLM hallucinates. The size axis was open: posterior-stability machinery from Bayesian inverse problems had not been brought to coupled inference.
+The dominant lineage in hallucination theory bounds *frequency* from below — calibrated LLMs *must* hallucinate at some rate. We bound *size* from above: the goal-conditional displacement of the post-update model state from the goal-marginal, under coupled belief-goal inference. The two axes are orthogonal — how often versus how much an LLM hallucinates. The size axis was open: posterior-stability machinery from Bayesian inverse problems had not been brought to coupled inference.
 
 The main theorem bounds the displacement by transferred information,
 
