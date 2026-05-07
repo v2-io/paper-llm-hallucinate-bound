@@ -52,10 +52,10 @@ The proof is short: a chart rescaling $\phi \mapsto a\phi$ scales the chart-Eucl
 
 The no-go forces a coordinate-invariance commitment if a universal constant is wanted at all; (PI)+(R)+(K) is the natural commitment for an information-coordinate cascade; and Čencov uniqueness within that commitment leaves *no further freedom* — the metric is forced (Fisher-Rao) and the constant is forced ($\sqrt{2}$). The trajectory has no choice points: each step rules out alternatives until only one remains.
 
-> [!theorem] Uniqueness and sharpness of the Fisher-Rao $+\sqrt{2}$ bound ^thm-fr-uniqueness
-> Let $\mathcal{M}$ be a statistical-manifold sub-case (H1), and let the bound take the umbrella form $\mathbb{E}\,d_{\mathcal{M}}(\Delta M_{\text{bias}}) \le C\sqrt{I(G; M_{\tau^+}\mid e_\tau, M_{\tau^-})}$ under the constraints (PI)+(R)+(K). Then:
+> [!theorem] Uniqueness and sharpness of the Fisher-Rao $+\sqrt{2}$ bound (local) ^thm-fr-uniqueness
+> Let $\mathcal{M}$ be a statistical-manifold sub-case (H1), and let the bound take the umbrella form $\mathbb{E}\,d_{\mathcal{M}}(\Delta M_{\text{bias}}) \le C\sqrt{I(G; M_{\tau^+}\mid e_\tau, M_{\tau^-})}$ under the constraints (PI)+(R)+(K)+(H4$'$). Both endpoints of $d_{\mathcal{M}}$ — the goal-conditional slice and the goal-marginal baseline — are points on the ambient $L^2$-sphere of $\sqrt p$ (the maximal statistical manifold) by construction; under (H4$'$) the slices stay in a small neighborhood of the baseline where the ambient Fisher-Rao spherical arc agrees with submanifold-intrinsic geodesics at second order. Then:
 >
-> *(a)* $d_{\mathcal{M}}$ is uniquely the Fisher-Rao geodesic distance.
+> *(a)* $d_{\mathcal{M}}$ is uniquely the Fisher-Rao geodesic distance (Amari-Nagaoka spherical-arc convention; coincides with submanifold-intrinsic geodesics at second order in the local regime).
 >
 > *(b)* No constant $C < \sqrt 2$ uniformly bounds $\mathbb{E}\,d_{FR}/\sqrt{I_M}$ across the (H4$'$) regime: a symmetric two-point witness $G \in \{-a, +a\}$ uniform on the conjugate-Gaussian Class 1 family delivers $\mathbb{E}\,d_{FR}/\sqrt{I_M} \to \sqrt 2$ as $a \to 0$. The two-point construction keeps $d_{FR}$ exactly constant across goal slices by symmetry, so Jensen is tight and the first-moment sharpness holds directly. $C = \sqrt 2$ is the unique sharp upper-bound constant under (PI)+(R)+(K)+(H4$'$).
 

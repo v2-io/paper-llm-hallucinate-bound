@@ -1,6 +1,6 @@
 ## Track 2 companions and parametric Euclidean translations ^sec-track2-companions
 
-The locally-tight Fisher-Rao bound ([[#^thm-umbrella]]'s Track 2 instantiation) is one of three Fisher-Rao-spine bounds; the other two — a globally-valid Fisher-Rao backstop and a Hellinger backstop — recover under strictly weaker hypotheses, with universal constants of their own. Together with the conjugate-Gaussian Euclidean translation (review-defusing the no-go's apparent scale-family pathology) and the exponential-family Euclidean generalization, they form the Track 2 family.
+The locally-tight Fisher-Rao geodesic bound ([[#^thm-umbrella]]'s Track 2 instantiation under (PI)+(R)+(K)+(H4$'$)) is one of three Fisher-Rao-spine bounds; the other two — a globally-valid *ambient Fisher-Rao spherical-arc* bound and a Hellinger chord backstop — recover under strictly weaker hypotheses, with universal constants of their own. Together with the conjugate-Gaussian Euclidean translation (review-defusing the no-go's apparent scale-family pathology) and the exponential-family Euclidean generalization, they form the Track 2 family.
 
 ### Track 2 global Fisher-Rao spherical-arc backstop ^sec-track2-global
 
