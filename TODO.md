@@ -4,6 +4,26 @@
 
 ---
 
+## Read-through notes — 2026-05-06 (rc1 = `OUT.re-paper.md`)
+
+Read through `out/re-paper.pdf` carefully — front, several middle pages, last few of main text + references transition. The reshape from 30pp-body to 12pp-body is impressive; spine reads cleanly. A few reactions and suggestions:
+
+**What's working well:**
+
+1. *Title and axis distinction.* "How Much Can LLMs Hallucinate? An Upper Bound via Coupling and Ambiguity" frames the size-vs-frequency axis immediately. Reader knows what to expect within ten words of the title; the orthogonal-axis pivot in line 5-6 of the abstract ("orthogonal — how often versus how much") earns the title's promise.
+2. *Hypothesis chain (PI / R / K / H1).* §3.3 staging — Hypothesis 3.1 (PI Sufficient-statistic invariance), 3.2 (R Riemannian structure), 3.3 (K KL second-order matching), 3.4 (H1 Statistical-manifold sub-case) — is exemplary. Each Hypothesis as a numbered amsthm callout with brief motivation between, and the explicit "(R) and (K) are both implicit in any 'E d ≤ C √I' theorem-shape with second-order matching; we name them explicitly so the uniqueness statement of Theorem 4.5 has its hypotheses fully stated" is the right kind of axiom-discipline. This is how Čencov-uniqueness should be staged.
+3. *Architectural classification table.* §3.2's Class 1 / 2 / 3 partition with examples reads as a proper mathematical typology rather than three loose buckets — the (Hκ) commitment scope per class (automatic for 1, named for 2/3) makes the architectural reading land. The table renders cleanly in the PDF post-`cols="l X X X"` refactor.
+4. *Mechanism § as proof-story not proof-execution.* §5 (Mechanism) sketches Track 1 + Track 2 + the no-go in narrative form, with detailed proofs deferred to appendices A-F. This matches the OUTLINE-STRATEGY.md exemplar pattern (Jin-style: §5 narrates, appendix executes) and is exactly what the 30pp → 9pp reshape is supposed to deliver.
+
+**Suggestions:**
+
+1. *Abstract forward-reference.* Line 3 still has "(positive results showing achievable negligibility exist as a counter-current; §7.1 surveys both directions)" — your earlier TODO note flagged this as a back-burnered post-reshape rewrite, just confirming it's still in the current build. AUTHORING §6.3: "Avoid forward references to section numbers (paper hasn't started yet); name the result instead." A near-equivalent without the section-number could be: "(positive results showing achievable negligibility — Suzuki et al. 2025 — exist as a counter-current; we situate both in our related-work treatment.)" Same content, no forward ref.
+2. *Reference field hygiene.* Refs [4] (Wu-Grama-Szpankowski), [19] (Kallenberg), [21] (Gray) all carry author-side working notes in the rendered bibliography — e.g., [4]: "Year-of-record decision (2024 arXiv vs 2025 ICLR) deferred per source OUTLINE — flagged in TODO.md as 'M5 Wu-Grama-Szpankowski venue'." Per AUTHORING §3.9 these are chronicle voice in formal text and shouldn't appear in the submitted PDF. Same systematic issue as 01-tragedy; flagging the underlying `bin/refs emit` filter to the build-pipeline owner separately. In the meantime, the working-note text for those entries can stay in your `bin/refs` working notes elsewhere — just clear the `note:` field of any entry where the value reads as agent-meta rather than scholarly-bibliography.
+3. *Page-budget at 12pp (3 over).* `bin/page-budget` reports `12pp main-text [OVER: +3 vs 9-pp]` for the current re-paper. The bibliography between body and appendix accounts for 1-2 of those (page-budget over-counts when bibliography lacks a TOC entry under hyperref draft mode), so realistic main-text is closer to 10-11pp. One structural lever toward 9: the §3.3 Axioms presentation (PI / R / K / H1 as four separate Hypothesis blocks each with its own motivating prose paragraph) could compress into a single Hypothesis 3.1 with named clauses (PI), (R), (K), (H1) — saves ~½-1pp. Whether that compression is worth the loss of staging-clarity is your call; the current four-Hypothesis form reads cleanly and may be worth the half-page.
+4. *Lemma 3.5 attention-coupled status.* Cleanly stated and referenced from the table. The "structurally Class 3 by Lemma 3.5, not as an incidental property of training" framing in §6 conclusion lands well.
+
+---
+
 ## Inbox — flagged 2026-05-06 by build-pipeline agent
 
 **Page-budget reality check — substantial overrun.** `bin/build 03-llm-hallucinate-bound neurips-2026-paper` currently produces a 38-page PDF; main text (§1–§8) ends at page 27, References starts at page 28, Appendix A at page 31. That's **~18 pages over** the 9-page main-text limit. The earlier OUTLINE risk-register note ("comfortable at 9 pages, probably 8.5") doesn't match the current build — please verify directly via `pdfinfo out/neurips-2026-paper.pdf` plus a grep for the References transition, then plan substantial main-text trim and/or aggressive appendix relocation. The current manifest doesn't have any rows commented out. (Page-budget tool `bin/page-budget` is a known PIPELINE-TODO §E3 port-pending item; in the meantime `pdfinfo` + grep-for-section-transitions is the manual check.)
