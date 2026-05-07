@@ -4,6 +4,100 @@
 
 ---
 
+## De-novo audit triage — 2026-05-07 (Codex + Gemini)
+
+Two audits dropped in `audits/`:
+- `audits/de_novo_audit_2026_05_06.md` (Gemini, short)
+- `audits/de-novo-audit-2026-05-07.md` (Codex, longer; 6 H-tier + 2 M-tier findings)
+
+I read both, verified the load-bearing findings against `src/re/`, and triaged below. **Per AGENTS §3.1, attempted strengthening before accepting any softening recommendation.** Items I'm acting on are ones that survived that test as either (a) honest defects with strengthening paths or (b) genuine over-claims where the strengthening attempt fails.
+
+Items deliberately not surfacing as TODO entries: Gemini's "condense §5 Mechanism" (§5 is doing the OUTLINE-STRATEGY-exemplar narrative-bridge work, not space-saving territory); Gemini's "keep failed routes in appendix" (already done).
+
+### A1. Track 2 √2: clarify finite-local vs limit-asymptotic statement *(real defect, Codex H1)*
+
+**Verified.** Theorem 4.1's Track 2 row says `C = √2`. The proof at `src/re/E-proofs.md:34-49` gives `E d_FR ≤ √2 √I_M (1+o(1))` with **finite, explicit** remainder `R_3(δ_⋆) = (T_⋆/3)·√(2δ_⋆/I_min³)` — non-zero at any δ_⋆ ∈ (0,1), → 0 as δ_⋆ → 0. So at any finite δ_⋆ inside the (H4') regime, the constant is `√(2(1+R_3(δ_⋆)))`, not √2.
+
+**Strengthening attempt (taken).** This isn't a soften — it's a clarify. The cleanest statement: *under (H4'_δ), C(δ) = √(2(1+R(δ)))*, with **R(δ) → 0 as δ → 0** giving locally tight √2 in the limit. That's MORE precise than the current statement, not weaker. Sharpness (Theorem 4.5(b)) then says √2 is the limit-tight bound under (H4').
+
+**Action.** Edit Theorem 4.1's Track 2 row to read along the lines of: "Under (H4') with parameter δ, $C(δ) = \sqrt{2(1+R(δ))}$ with $R(δ) → 0$ as $δ → 0$; **locally tight at √2** in the limit (sharpness via Theorem 4.5(b))." Update §5 mechanism prose to match. Half-paragraph edit at most. Recommended: do.
+
+### A2. Theorem 4.5(b) sharpness witness — Jensen direction wrong *(real defect, Codex H2)*
+
+**Verified.** The sharpness statement claims no `C < √2` bounds `E[d_FR]/√I_M`. The proof at `src/re/E-proofs.md:84-87` shows `E[d_FR²]/I_M → 2` in the conjugate-Gaussian family with `Var_G(β) → 0`. By Jensen, `E[d]² ≤ E[d²]`, so a lower bound on `E[d²]` does *not* propagate to `E[d]`. The proof shows squared-distance sharpness; the theorem claims first-moment sharpness.
+
+**Strengthening attempt.** Two options on the table:
+- *(strengthen the witness)* Codex suggests two-point symmetric goal construction: `G ∈ {-a, +a}` equiprobable. By symmetry, `d_FR(P_M|G=+a, P_M)` and `d_FR(P_M|G=-a, P_M)` are equal, so `Var_G(d_FR) = 0` and Jensen is tight. Need to verify the construction lands at `E[d_FR]/√I_M → √2` exactly (the marginal `P_M` becomes a 2-component mixture, not a single Gaussian, so closed-form FR distance isn't immediate — needs one careful computation in the small-`a` limit).
+- *(strengthen the theorem statement)* Restate Theorem 4.5(b) for `E[d_FR²]/I_M` directly: "no `C² < 2` bounds `E[d_FR²]/I_M` uniformly across the (H4') regime." That's exactly what the proof shows, and it implies `E[d_FR] ≤ √(E[d_FR²]) ≤ √(2 I_M)·(1+o(1))` by Jensen-the-other-way (which is the upper-bound direction we want). The first-moment claim then follows AS A LIMIT under uniform-locality, not as a finite sharpness.
+
+I lean toward (strengthen the theorem statement) as cleaner — squared-distance sharpness IS what the proof gives, and it's not weaker on the upper-bound side. The witness construction (option 1) might still work but needs spike-level verification I haven't done.
+
+**Action.** Decide between (1) and (2). If (2): one-paragraph rewrite of Theorem 4.5(b) statement + the surrounding Remark. If (1): a small spike in `spikes/` to verify the two-point construction. Recommended: do (2) now, leave (1) as optional follow-up if we want the first-moment statement back.
+
+### A3. κ_processing zero-denominator convention *(real defect, Codex H4)*
+
+**Verified.** Definition at `src/re/03-setup.md:29` gives κ as the ratio of two MIs without specifying the 0/0 case. The text at line 31 handles 0+/0 (parrot, κ=∞) but not 0/0.
+
+**Strengthening attempt.** Not really applicable — this is a small definitional gap, not a softening. The 0/0 case (Class 1 with fully-resolved Ω, no goal info to transfer) gives a trivially-zero bound, and the natural convention is `κ_processing := 0` in that case.
+
+**Action.** Add one sentence after the κ definition at `src/re/03-setup.md:29-31`: *"Convention: when both numerator and denominator are zero (no transferred goal-information and no residual ambiguity), set κ_processing := 0. Then the bound's right-hand side is trivially zero."* Quick fix, do whenever.
+
+### A4. Lemma 3.5 prose-to-formal scope tightening *(real defect, Codex H5)*
+
+**Verified.** Three sites, three different scope-claims:
+- `src/re/01-introduction.md:25`: *"every internal computation has a directed-graph path from any input position"* — broadest reading
+- `src/re/03-setup.md:23` (table): *"G is causally upstream of every computation"* — also broad
+- `src/re/03-setup.md:64-66` (formal lemma): *"for every layer ℓ ≥ 1 and position j ≥ max(i_G ∪ i_E)"* — narrow, downstream-only
+
+The proof's inductive claim at `E-proofs.md:102` is actually broader than the lemma's stated scope (every input position i ≤ j has a path to h_ℓ^(j)) — and the intro prose accurately reflects THAT — but only positions j ≥ max(i_G ∪ i_E) are claimed Coupled-class in the lemma's formal statement.
+
+**Strengthening attempt.** Can the lemma's formal scope be widened to match the prose? For positions j < min(i_G), causal masking blocks the path from goal — those positions are *genuinely* Class 1 (Separated), as noted in the proof's caveat at `E-proofs.md:117`. So no, can't widen. The honest move is to tighten prose.
+
+**Action.** Two edits, both small:
+- intro line 25: replace "every internal computation has a directed-graph path from any input position" → "every output computation downstream of the goal positions has a directed-graph path from at least one goal position"
+- table row at `03-setup.md:23`: replace "G is causally upstream of every computation" → "G is causally upstream of every downstream output computation"
+
+### A5. Metric uniqueness as forced-choice trajectory *(beauty/wisdom, Gemini #3)*
+
+**Verified by reading.** Currently §4 has Theorem 4.4 (no-go on Euclidean charts) and Theorem 4.5 (Čencov uniqueness + sharpness) as adjacent statements. They flow logically but the *narrative arc* is parallel rather than consequent.
+
+Gemini's reframe: present the sequence as forcing the reader's hand. *"Theorem 4.4 rules out coordinate-naive metrics → (PI)+(R)+(K) carve out the metric space → Čencov's uniqueness within that space picks out Fisher-Rao up-to-scalar → (K) pins the global scalar → √2 is the only surviving constant."* No theorems change; the prose between them gets a single-sentence trajectory frame that makes each step feel inevitable rather than axiomatic.
+
+**Action.** Add a 2-3 sentence narrative bridge between Theorem 4.4 and Theorem 4.5 (probably as the §4.3 opening or as a remark sandwiched between). Could also restructure the existing Remark on alt commitments (TV/Pinsker/Hellinger/χ²/Rényi) to land at the END of the trajectory: *"the no-go tells us exactly what to commit to, the uniqueness tells us exactly what falls out."* The current remark already says this; just sequencing it at the right narrative beat. Beauty pass, ~½-paragraph edit.
+
+### A6. Extend Lemma 3.5 to SSMs / linear-attention? *(strengthening spike, Gemini #4)*
+
+**Maybe.** Mamba/SSM has a recurrent hidden state h_t depending on all past inputs (including goal positions); linear attention has output as a kernel-weighted combination with weights derived from goal-position queries. Both have structural goal-dependence on downstream output computations. The directed-graph-path argument should generalize, but the formalization needs care: "non-degenerate attention" doesn't have a direct analog in SSMs (it's "non-degenerate state-update gain"); linear attention has a different non-degeneracy condition on the kernel.
+
+**Strengthening attempt.** Worth a spike — `spikes/A6-extend-lemma-3.5-to-ssm-linear-attn/` with an investigation. If it works cleanly, generalize Lemma 3.5 to "autoregressive sequence models with goal-dependent hidden states, satisfying a per-architecture non-degeneracy condition." If it doesn't work cleanly, the current narrow form (transformer attention) is fine for the paper's claims and the negative result becomes a pointer-to-future-work.
+
+**Action.** Spike, opus-4.7 model, no rush. Optional but high-value — broadens the bound's applicability without diluting it. Could fold into the paper if it lands cleanly; defer otherwise.
+
+### A7. "Strict sub-case of Bayesian-inverse-problems lineage" → softer mapping *(honest soften, Codex M2)*
+
+**Verified.** The phrase appears at `src/re/04-main-results.md:30` and `src/re/01-introduction.md:17`. We claim Track 1 "contains the existing literature as a strict sub-case." But Stuart-school posterior stability bounds perturbations of data/prior/likelihood maps; we bound goal-conditional displacement on a post-update law (different object, with chain-rule bridging). The conjugate-Gaussian Class 1 instantiation does recover the canonical cascade constant — but exact-recovery in one canonical example isn't a containment of the entire lineage.
+
+**Strengthening attempt fails.** I don't see how to defend "strict sub-case" without a reduction theorem mapping all Stuart-school posterior-stability statements into our framework. Such a reduction may exist but isn't in our paper. The conjugate-Gaussian witness is real; the strict-sub-case claim is the over-reach.
+
+**Action.** Replace "strict sub-case" claim with: *"Track 1 recovers the canonical Stuart-school cascade constant `2L_post²/ρ_LSI` exactly in the conjugate-Gaussian Class 1 (Separated) case (verified in Appendix C); Track 1's machinery thereby connects directly to the Bayesian-inverse-problems lineage without relying on it."* Two-line replacement at each of the two sites. Honest soften; replaces an over-claim with the actually-true thing.
+
+### Folds-into / no-new-action notes
+
+- *Codex H3 (hallucination size definitional precision)*: folds into existing Q4 ("displacement-not-frequency framing earlier in §1"). The definitional sentence Codex suggests — *"In this paper, hallucination size means the goal-coupling-induced displacement of the model's evidence-conditioned belief state, not the semantic distance from a false output to truth"* — is a clean addition to the §1 Scope reframe planned in Q4.
+- *Codex M1 (H1 LLM applicability narrow)*: folds into Q1 (abstract rewrite) and Q4. Both will naturally make the H1-restricted scope of the LLM application visible.
+- *Codex H6 ("empirically accessible κ" too strong)*: small fix. Either move sentence at `src/re/04-main-results.md:82` from main text to §6 conclusion's future-work paragraph, or rephrase as "may be empirically probed" rather than "is empirically accessible." Either works; lean toward the rephrase (one-word change). Could do as a knock-out alongside A3/A4.
+
+### Suggested sequence if you say "go"
+
+1. **Knock out A3, A4, A7 + Codex H6 rephrase.** All small surface-level edits, content-preserving (or in A7's case, content-correcting). One commit.
+2. **A1 + A2.** The two real Track-2-statement defects. One commit, paired since they're the same axis (theorem statement vs proof).
+3. **A5.** Beauty pass on the no-go + uniqueness narrative bridge. Half-paragraph.
+4. **A6.** Spike (background, no rush) — extend Lemma 3.5 to SSMs/linear-attention.
+
+A1-A5 should be doable in one sitting if I take a swing at all of them; report back with a diff. A6 is genuinely speculative and warrants its own spike report.
+
+---
+
 ## Peer-feedback integration queue — 2026-05-06
 
 Three pieces of peer feedback came in on `paper-rc1.pdf`:
