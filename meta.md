@@ -1,5 +1,5 @@
 ---
-title: "How Much Can LLMs Hallucinate? An Information-Geometric Upper Bound on Goal-Coupling Displacement"
+title: "How Much Can LLMs Hallucinate? An Upper Bound on Goal-Coupling Displacement"
 authors:
   - name: Joseph A. Wecker
     affiliation: Independent
