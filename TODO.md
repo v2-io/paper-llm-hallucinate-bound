@@ -262,3 +262,24 @@ The build's anonymization scanner will continue to flag these as `[?]` superscri
 - **Empirical-validation absence risk: medium-high.** NeurIPS reviewers expect empirical validation; pure theory paper is a known weak spot. Mitigations: (a) the bound is a conditional theorem under standard regularity (LSI verifiable; Lipschitz-posterior is Stuart 2010 standard); (b) Track 2 is mathematically airtight under (PI); (c) the no-go is counterexample-grade. Empirical estimator for $\hat\kappa_{\text{processing}}$ via two-goal probing kept as brief §2.3 mention; formal operationalization is genuine future work.
 - **Citation-hallucination risk: low.** Pass-3 citation-verification spike returned 0 FAILED. Foundational citations all verified; recent 2024–2026 papers all in Undermind report's evidence register; year-of-record corrections applied Pass-3 (Sprungk, Latz, Dolera-Mainini, Dolera-Favaro-Mainini); Kalai-Nachum-Vempala-Zhang updated to Nature 2026 source-of-record at Pass-4 with arXiv 2025 noted; Chlon pinned to v1 explicitly.
 - **Vocabulary-anonymization risk: low.** Migration-time scan returned zero hits on the four-category watch. Pass-3 / Pass-4 sweeps caught the named risks (`logogenic`, `directed-separation`). Re-verify at submission time as standard hygiene.
+
+---
+
+## Build-pipeline notice — 2026-05-06 (build-pipeline owner)
+
+The umbrella build interface refactored at commit `d24c9e8` (`SPEC-build-refactor.md` for the design discussion). Practical changes you'll see in the working tree on first build:
+
+- **New ephemeral build dir.** `<paper>/.build/<stem>/` replaces `<paper>/out/`. Holds the rendered `.tex`, the auto-emitted `<stem>.references.bib`, lualatex intermediates, and the canonical `<stem>.pdf`. Worth `.gitignore`-ing (`.build/`) when convenient.
+- **PDF snapshot-and-swap.** On each build, `<stem>.pdf` moves to `<stem>.prior.pdf` first, then the fresh PDF lands as `<stem>.pdf`. A failed build leaves the prior PDF as the last-known-good. `*.prior.pdf` is also worth `.gitignore`-ing.
+- **New tracked artifact.** `<stem>.extracted.bib` is a repo-visibility snapshot of the bib that bibtex actually used. Naming is explicit-on-purpose so it's obvious-by-construction that it's a build artifact (canonical edits go through `bin/refs add` / `refs/entries/<key>.yml`). Recommended to track for diff visibility.
+- **`<paper>/refs.bib` is now an orphan.** The build no longer reads or writes it — `bin/refs emit` runs automatically before each compile and writes to `.build/<stem>/<stem>.references.bib`. Existing `<paper>/refs.bib` files just sit there until you remove them.
+
+**One thing surfaced by the new auto-emit flow worth your attention:** three cite-keys in `re-paper`'s segment source resolve against `03-llm-hallucinate-bound/refs.bib` but **not** against `refs/entries/` at the umbrella. Build still produces a PDF (placeholder substitution renders `[?\,key]` for unresolved cites and lints them) but those three references are no longer rendering as proper cites:
+
+  - `tsybakov-2009-nonparametric` — exists as `@book{...}` in your local `refs.bib` but no `refs/entries/<key>.yml`. Run `bin/refs add tsybakov-2009-nonparametric` and paste the BibTeX from your local `refs.bib` (or take a fresh BibTeX from the publisher).
+  - `ay-2017-information` — same situation. Run `bin/refs add ay-2017-information` with the BibTeX.
+  - `lie-sullivan-teckentrup-2017` — doesn't exist anywhere I could find (not in your local `refs.bib` either). Looks like a typo or a citation that was meant to point at a different key. Worth a search-the-source to figure out what was intended.
+
+The umbrella's `refs/entries/` is the source of truth post-refactor; per-paper `refs.bib` files were the migration artifact. Migrating those last keys closes out the F1.4 paper-side migration entirely.
+
+CLI gained cwd-aware behavior — from inside your paper-dir, `bin/build` (no args) now builds all your manifests. `bin/build <stem>` from cwd builds one. The umbrella forms (`bin/build <paper-dir> [<stem>]`, `bin/build --all`) still work.
