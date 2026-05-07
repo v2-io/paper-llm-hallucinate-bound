@@ -6,7 +6,7 @@
 #   <stem>.prior.pdf — previous-successful-build snapshot
 .build/
 *.prior.pdf
-re-paper.pdf
+llm-hallucinate-NeurIPS-2026.pdf
 
 # Pre-refactor build dir (now empty / dead).
 out/
