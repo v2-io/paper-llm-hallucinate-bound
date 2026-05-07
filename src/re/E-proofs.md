@@ -78,7 +78,7 @@ Each Strand 2 paper — \citet{stuart-2010-acta}, \citet{sprungk-2020-local-lips
 The umbrella theorem's Track 2 instantiation (under (H1) + (H4$'$) + (PI) + (R) + (K)) follows in one step using the KL-to-Fisher-Rao expansion.
 
 > [!proof]
-> Apply [[#^lem-kl-fr-expansion]] under (H1) + (H4$'$) slice-wise at each $G = g$ to get
+> We take the local expansion in the *ambient maximal statistical manifold* (the unit $L^2$-sphere of $\sqrt p$, of which every probability distribution — including the goal-marginal mixture baseline $P_{M_{\tau^+}}$ — is a point); under (H4$'$) the ambient spherical arc and the induced submanifold Fisher-Rao geodesic agree at second order along the goal-induced neighborhood. Apply [[#^lem-kl-fr-expansion]] under (H1) + (H4$'$) slice-wise at each $G = g$ to get
 >
 > $d_{FR}^2(P_{M_{\tau^+}\mid e, M, G=g},\, P_{M_{\tau^+}\mid e, M}) \;\leq\; 2\,\mathrm{KL}(P_{M_{\tau^+}\mid G=g}\,\|\,P_{M_{\tau^+}})\,(1 + o(1))$.
 >
@@ -101,7 +101,7 @@ The constant $\sqrt{2}$ emerges from the second-order coefficient $\tfrac{1}{2}$
 > [!lemma] Chart-rescaling sensitivity of Euclidean displacement ^lem-chart-rescaling
 > Let $\mathcal{M}$ be a statistical manifold and $\phi: U \to \mathbb{R}^d$ a chart on an open set $U \subseteq \mathcal{M}$. For any $a > 0$, write $\phi_a := a\phi$ for the rescaled chart. For every pair of probability laws $\mu, \nu$ on $U$ (in particular, the goal-conditional and goal-marginal post-update laws of [[#^eq-bias-quantity]]):
 > *(a)* The chart-Euclidean Wasserstein distance scales linearly: $W_2^{\phi_a}(\mu, \nu) = a\cdot W_2^\phi(\mu, \nu)$.
-> *(b)* Conditional KL, conditional mutual information, Fisher-Rao geodesic distance, and Hellinger distance are all chart-invariant: they take the same value under $\phi$ and $\phi_a$.
+> *(b)* Conditional KL, conditional mutual information, Fisher-Rao spherical-arc distance, and Hellinger distance are all chart-invariant: they take the same value under $\phi$ and $\phi_a$.
 
 > [!proof]
 > *(a)* The pushforward under the linear map $x \mapsto ax$ rescales Euclidean distances by $a$, hence rescales any optimal coupling's transport cost.
