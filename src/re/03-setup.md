@@ -8,7 +8,7 @@ The *goal-conditional bias* measures the displacement of the goal-conditional la
 
 $$\|\Delta M_{\text{bias}}(G)\| \;:=\; d_{\mathcal{M}}\!\left(P_{M_{\tau^+}|e_\tau, M_{\tau^-}, G},\; P_{M_{\tau^+}|e_\tau, M_{\tau^-}}\right),$$ ^eq-bias-quantity
 
-a random variable in $G$. Throughout, $d_{\mathcal{M}}(\cdot, \cdot)$ denotes either the Wasserstein distance $W_2$ on the induced model-distribution (Track 1) or the Fisher-Rao geodesic distance $d_{FR}$ on the statistical-manifold sub-case (Track 2). Euclidean-on-parameters is the choice [[#^sec-no-go]] rules out.
+a random variable in $G$. Throughout, $d_{\mathcal{M}}(\cdot, \cdot)$ denotes one of two distinct objects, used cleanly within their respective tracks. *(Track 1)* the Wasserstein distance $W_2$ on **laws over the parameter manifold $\mathcal{M}$** — the goal-conditional and goal-marginal post-update random elements of $\mathcal{M}$ are compared as probability laws on $\mathcal{M}$ with a ground metric on $\mathcal{M}$. *(Track 2)* the Fisher-Rao geodesic distance $d_{FR}$ on the statistical-manifold sub-case (H1), where each model state $M_t \in \mathcal M$ carries an associated probability distribution $P_{M_t}$ over the latent world-state — and the bias quantity is the random spherical arc between $P_{M_{\tau^+}\mid e_\tau, M_{\tau^-}, G}$ and $P_{M_{\tau^+}\mid e_\tau, M_{\tau^-}}$ as points on the unit $L^2$-sphere of $\sqrt p$. We adopt the *Amari-Nagaoka spherical-arc convention* $d_{FR}(P, Q) := 2\arccos\int\sqrt{pq}$ throughout, with $d_{FR} \in [0, \pi]$. (Equal to the intrinsic Fisher-Rao geodesic on the full simplex / nonparametric ambient space; on a parametric submanifold the ambient spherical arc is the chart-invariant pseudometric we bound.) The locally-tight $\sqrt 2$ regime (under (PI)+(R)+(K)+(H4$'$)) operates in the small-displacement limit where the ambient arc agrees with submanifold-intrinsic geodesics at second order; the globally-valid $C = 2$ regime (under (PI) alone) operates on the ambient arc directly. Euclidean-on-parameters is the choice [[#^sec-no-go]] rules out.
 
 ### Goal/Update Coupling Class ^sec-architectural-classification
 
@@ -24,7 +24,7 @@ Architectures partition by whether $G$ has a causal path into the belief-update 
 
 Class 1 (Separated) is the architectural-separation case studied throughout Bayesian inverse-problems theory. Class 3 (Coupled) is the case the existing hallucination-theory lineage doesn't engage geometrically. Class 2 (Partial) is genuinely intermediate — hybrid LLM systems with retrieval, tools, scratchpads, or external memory — and lives at the system level rather than the architecture level. The Pearl-blanket reading \cite{bruineberg-dolega-dewhurst-baltieri-2022-bbs} of the Markov-blanket apparatus grounds the partition; we do not adopt the Friston-blanket metaphysical reading.
 
-The bound's architectural-corollary form ([[#^eq-arch-corollary-informal]]) factors transferred goal-information through an *attenuation ratio* — the proportion of in-principle-resolvable goal-information that the architecture's update mechanism actually transfers into the post-update model state:
+The bound's architectural-corollary form [[#^eq-arch-corollary-informal]] factors transferred goal-information through an *attenuation ratio* — the proportion of in-principle-resolvable goal-information that the architecture's update mechanism actually transfers into the post-update model state:
 
 $$\kappa_{\text{processing}} \;:=\; \frac{I(G;\,M_{\tau^+} \mid e_\tau,\, M_{\tau^-})}{I(G;\,\Omega_\tau \mid e_\tau,\, M_{\tau^-})}.$$ ^eq-kappa-processing
 
@@ -34,10 +34,10 @@ Conditioning on $M_{\tau^-}$ matters: prior correlation between goals and prior 
 
 The universal-constant route ([[#^sec-track2-mechanism]], Track 2) commits to three axioms on the bound's metric $d_{\mathcal{M}}$:
 
-> [!hypothesis] (PI) Sufficient-statistic invariance ^pi-axiom
-> The bias bound's metric on $\mathcal{M}$ is invariant under sufficient statistics — equivalently, under Markov morphisms / congruent embeddings of statistical manifolds in the sense of \citet{cencov-1982-stat-decision}.
+> [!hypothesis] (PI) Sufficient-statistic invariance across the natural category ^pi-axiom
+> The bias bound's metric is a *natural Riemannian-metric assignment* on the category of standard parametric statistical models — for each model in the category, a Riemannian metric, with the assignment commuting with congruent Markov morphisms (sufficient statistics) in the sense of \citet{cencov-1982-stat-decision}. The induced metric on $\mathcal{M}$ inherits this categorical assignment.
 
-(PI) at full Markov-morphism strength is what \citeauthor{cencov-1982-stat-decision}'s uniqueness theorem actually requires. Smooth-coordinate invariance alone admits an infinite family of metrics; the strictly-stronger Markov-morphism class singles out Fisher-Rao up to global scalar.
+(PI) at full Markov-morphism strength is the *categorical* invariance Čencov's uniqueness theorem requires: the assignment must respect every sufficient-statistic morphism across the category, not merely smooth coordinate changes on a single fixed $\mathcal M$. Smooth-coordinate invariance alone admits an infinite family of metrics; the strictly-stronger categorical Markov-morphism class singles out Fisher-Rao up to global scalar.
 
 > [!hypothesis] (R) Riemannian structure ^r-axiom
 > The bound's metric $d_{\mathcal{M}}$ derives from a smooth Riemannian metric on $\mathcal{M}$.
