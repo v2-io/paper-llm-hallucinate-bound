@@ -37,8 +37,18 @@ Track 1's (H2$'$) is most naturally verified through a two-step Lipschitz-pushfo
 > [!proof]
 > Let $\rho \ll T_*\mu$. Disintegrate $\mu(dx) = \mu_y(dx)\,T_*\mu(dy)$ along $T$. The lift $\tilde\rho(dx) := \mu_y(dx)\,\rho(dy)$ satisfies $T_*\tilde\rho = \rho$ and $\mathrm{KL}(\tilde\rho \,\|\, \mu) = \mathrm{KL}(\rho \,\|\, T_*\mu)$ (chain-rule decomposition with shared conditionals). For any coupling $\pi$ of $(\tilde\rho, \mu)$, the pushforward $(T \otimes T)_*\pi$ couples $(\rho, T_*\mu)$ with cost $\le L^2$ times the input cost. Hence $W_2^{d_Y}(\rho, T_*\mu)^2 \le L^2\,W_2^{d_X}(\tilde\rho, \mu)^2 \le L^2 C\,\mathrm{KL}(\tilde\rho \,\|\, \mu) = L^2 C\,\mathrm{KL}(\rho \,\|\, T_*\mu)$. (Standard $T_2$-tensorization-style argument; cf. \citealt{bobkov-gotze-1999-t2-subgaussian}.) $\square$
 
+The reduction needs an additional tensorization lemma — $T_2$ on the goal-induced parameter measure tensorizes through a Lipschitz-conditional kernel into $T_2$ on the joint, then projects to the marginal observation law, then pushes forward through the Bayesian-update map.
+
+> [!lemma] Tensorization of $T_2$ with Lipschitz-conditional kernel ^lem-tensorization-t2
+> Let $P_\theta$ on $\Theta$ satisfy Talagrand $T_2(C_\theta)$, and let kernel $K(\theta,\cdot) := P_{\Omega\mid\theta}$ satisfy *(i)* $K(\theta, \cdot) \in T_2(C_{\text{slice}})$ uniformly in $\theta$, and *(ii)* $W_2(K(\theta_1, \cdot), K(\theta_2, \cdot)) \le L_{\text{lik}}\|\theta_1 - \theta_2\|$. Then the joint $P_\theta \otimes K$ on $\Theta \times \Omega$ with the $L^2$-product metric satisfies $T_2(C_J)$ with $C_J \le \max\bigl((1 + 2 L_{\text{lik}}^2)\,C_\theta,\; 2\,C_{\text{slice}}\bigr)$.
+
+> [!proof]
+> Disintegrate $\rho \ll P_\theta \otimes K$ as $\rho(d\theta, d\Omega) = \rho_\theta(d\Omega)\rho_\Theta(d\theta)$. Chain rule on KL: $\mathrm{KL}(\rho \,\|\, P_\theta \otimes K) = \mathrm{KL}(\rho_\Theta\,\|\,P_\theta) + \int \mathrm{KL}(\rho_\theta\,\|\,K(\theta,\cdot))\,d\rho_\Theta$. Construct a coupling: $\pi^\Theta$ optimal $W_2$ between $(\rho_\Theta, P_\theta)$; for each $(\theta, \theta')$, $\pi^\Omega(\theta, \theta')$ optimal $W_2$ between $(\rho_\theta, K(\theta', \cdot))$. The product coupling has marginals $\rho$ and $P_\theta \otimes K$, with $L^2$-product cost $W_2^2(\rho_\Theta, P_\theta) + \iint W_2^2(\rho_\theta, K(\theta', \cdot))\,d\pi^\Theta$. Triangle + Cauchy-Schwarz with (ii): $W_2^2(\rho_\theta, K(\theta', \cdot)) \le 2 W_2^2(\rho_\theta, K(\theta, \cdot)) + 2 L_{\text{lik}}^2\|\theta-\theta'\|^2$. Apply (i) to the first piece, $T_2(C_\theta)$ to the marginal, combine: $W_2^2(\rho, P_\theta \otimes K) \le (1 + 2L_{\text{lik}}^2) C_\theta\,\mathrm{KL}(\rho_\Theta\,\|\,P_\theta) + 2C_{\text{slice}}\,\int\mathrm{KL}(\rho_\theta\,\|\,K(\theta,\cdot))\,d\rho_\Theta \le \max((1+2L_{\text{lik}}^2)C_\theta, 2C_{\text{slice}})\,\mathrm{KL}(\rho\,\|\,P_\theta\otimes K)$. $\square$
+
 > [!theorem] Stuart-school reduction — generalized cascade-constant transfer ^thm-stuart-school-reduction
 > Suppose:
+>
+> *(C0)* (Goal-induced parameter concentration.) $P_\theta := \theta_*P_G$ satisfies Talagrand $T_2(C_\theta)$ on parameter space.
 >
 > *(C1)* (Class 1 architecture.) $G \to \Omega_\tau \to M_{\tau^+}$ is a Markov chain conditional on $(e_\tau, M_{\tau^-})$.
 >
@@ -46,26 +56,22 @@ Track 1's (H2$'$) is most naturally verified through a two-step Lipschitz-pushfo
 >
 > *(C3)* (Stuart-school Lipschitz posterior.) $W_2(\mu^\Omega, \mu^{\Omega'}) \le L_{\text{post}}\,\|\Omega - \Omega'\|$ uniformly on $\mathrm{supp}\,P_\Omega$.
 >
-> *(C4)* (Goal acts via parameter shift on a sub-Gaussian conditional likelihood.) $\Omega \mid G = g \sim P_{\Omega \mid \theta = \theta(g)}$ with $W_2^2(P_{\Omega \mid \theta_1}, P_{\Omega \mid \theta_2}) \le (2/\rho_{\text{noise}})\|\theta_1 - \theta_2\|^2$ — the canonical Gaussian-or-exponential-family setup for the conditional data law.
+> *(C4a)* (Slice $T_2$.) For $P_\theta$-a.e. $\theta$, $P_{\Omega\mid\theta} \in T_2(2/\rho_{\text{noise}})$.
+>
+> *(C4b)* (Lipschitz-in-$\theta$ kernel.) $W_2(P_{\Omega\mid\theta_1}, P_{\Omega\mid\theta_2}) \le L_{\text{lik}}\|\theta_1 - \theta_2\|$.
 >
 > Then:
 >
-> *(a)* (H2$'$) holds on the goal-marginal post-update model law with $C_{T_2} = 2L_{\text{post}}^2/\rho_{\text{noise}}$.
+> *(a)* (H2$'$) holds on the goal-marginal post-update model law with $C_{T_2} \le L_{\text{post}}^2\,\max\bigl((1+2L_{\text{lik}}^2)\,C_\theta,\; 4/\rho_{\text{noise}}\bigr)$.
 >
-> *(b)* Track 1 yields $\mathbb{E}\,W_2^2(P_{M_{\tau^+}\mid G},\, P_{M_{\tau^+}}) \le (2L_{\text{post}}^2/\rho_{\text{noise}})\,I(G; M_{\tau^+}\mid e_\tau, M_{\tau^-})$.
+> *(b)* Track 1 yields $\mathbb{E}\,W_2^2(P_{M_{\tau^+}\mid G},\, P_{M_{\tau^+}}) \le C_{T_2}\,I(G; M_{\tau^+}\mid e_\tau, M_{\tau^-})$.
 >
-> *(c)* The constant $2L_{\text{post}}^2/\rho_{\text{noise}}$ is the canonical Stuart-school cascade constant — recovered under the same Stuart-school hypotheses generically, not only on the conjugate-Gaussian instance.
+> *(c)* The cascade constant has the canonical Stuart-school form $\propto L_{\text{post}}^2/\rho_{\text{noise}}$ across the Stuart-school hypothesis space, with an absolute multiplicative overhead from the kernel-tensorization step. The *tight* canonical constant $2L_{\text{post}}^2/\rho_{\text{noise}}$ is recovered on instances where the post-update parameter law admits a direct sub-Gaussian read-off (conjugate-Gaussian and exponential-family-conjugate cases — see [[#^sec-conjugate-gauss-numerics]] for the worked-through Class 1 instance).
 
 > [!proof]
-> Apply [[#^lem-pushforward-t2]] in two steps.
->
-> *Step 1.* The conditional-data-law family $\theta \mapsto P_{\Omega\mid\theta}$ pushes forward $\rho_{\text{noise}}$-concentration on $\theta$ into $T_2(2/\rho_{\text{noise}})$ on the conditional data law (C4 directly).
->
-> *Step 2.* The map $\Omega \mapsto \mu^\Omega$ is $L_{\text{post}}$-Lipschitz on $\mathrm{supp}\,P_\Omega$ (C3). [[#^lem-pushforward-t2]] gives $T_2(L_{\text{post}}^2 \cdot 2/\rho_{\text{noise}}) = T_2(C_{T_2})$ on $T_*P_\Omega = P_{M_{\tau^+}\mid e, M_{\tau^-}}$.
->
-> (b) follows from Track 1's standard cascade ([[#^sec-track1-proof]]). (c) is the matching of constants. $\square$
+> By [[#^lem-tensorization-t2]] applied to (C0)+(C4a)+(C4b), the joint $P_\theta \otimes K \in T_2(C_J)$ on $\Theta \times \Omega$ with $C_J \le \max((1+2L_{\text{lik}}^2)C_\theta,\, 4/\rho_{\text{noise}})$. The projection $(\theta, \Omega) \mapsto \Omega$ is 1-Lipschitz, so by [[#^lem-pushforward-t2]], $P_\Omega \in T_2(C_J)$. The map $\Omega \mapsto \mu^\Omega$ is $L_{\text{post}}$-Lipschitz by (C3), so by [[#^lem-pushforward-t2]] again, $P_{M_{\tau^+}\mid e, M_{\tau^-}} \in T_2(L_{\text{post}}^2 C_J) = T_2(C_{T_2})$. (b) follows from Track 1's standard cascade ([[#^sec-track1-proof]]). (c) is the matching of canonical form; the tight constant on conjugate instances comes from a *direct* sub-Gaussian read-off on the post-update parameter law (the structural Lipschitz-composition route is blind to the Bayesian-update contraction). Spike `spikes/A8-stuart-school-step1-gap/report.md` documents the structural obstruction and the failed alternative routes. $\square$
 
-Each Strand 2 paper — \citet{stuart-2010-acta}, \citet{sprungk-2020-local-lipschitz}, \citet{cvetkovic-2025-upper}, \citet{dolera-mainini-2023-aihp-lipschitz}, \citet{garbuno-inigo-2023-bayesian}, \citet{lie-sullivan-teckentrup-2017}, \citet{hosseini-hsu-taghvaei-2024-conditional-ot} — establishes a form of (C3) under increasingly weak hypotheses. [[#^thm-stuart-school-reduction]] is a single structural slot they all fit into; anywhere the Stuart-school cascade applies, Track 1 specializes to the same cascade constant under (C1)–(C4). The result is *not* a sub-case statement — Stuart-school proves outputs (matching lower bounds, multi-metric extensions, sub-Lipschitz refinements, contraction rates, randomized forward models) outside Track 1's reach. The averaged-over-goal form of Track 1 also cannot recover Stuart-school's pointwise pair-distance information on its own; the two literatures share machinery and exchange a constant, not theorem closures. Spike report at `spikes/A7-stuart-school-mapping/report.md` documents the boundary in full.
+Each Strand 2 paper — \citet{stuart-2010-acta}, \citet{sprungk-2020-local-lipschitz}, \citet{cvetkovic-2025-upper}, \citet{dolera-mainini-2023-aihp-lipschitz}, \citet{garbuno-inigo-2023-bayesian}, \citet{lie-sullivan-teckentrup-2017}, \citet{hosseini-hsu-taghvaei-2024-conditional-ot} — establishes a form of (C3) under increasingly weak hypotheses. [[#^thm-stuart-school-reduction]] is a structural slot they all fit into via the unbundled (C0)+(C3)+(C4a)+(C4b) hypothesis set; anywhere the Stuart-school cascade applies, Track 1 specializes to a constant of the canonical form $\propto L_{\text{post}}^2/\rho_{\text{noise}}$. The result is *not* a sub-case statement — Stuart-school proves outputs (matching lower bounds, multi-metric extensions, sub-Lipschitz refinements, contraction rates, randomized forward models) outside Track 1's reach. The averaged-over-goal form of Track 1 also cannot recover Stuart-school's pointwise pair-distance information on its own; the two literatures share machinery and exchange a constant of the same form, not theorem closures. Boundary mapped in `spikes/A7-stuart-school-mapping/report.md` (averaged-vs-pointwise gap) and `spikes/A8-stuart-school-step1-gap/report.md` (structural-vs-direct-sub-Gaussian gap on the constant tightness).
 
 ### Track 2 cascade — full derivation ^sec-track2-proof
 
