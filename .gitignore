@@ -1,4 +1,12 @@
 .DS_Store
 
-# Build artifacts (bin/build emits .tex/.pdf/.aux/.log/.bbl into out/).
+# Build artifacts (BUILD-CHANGE.md 2026-05-06 refactor):
+#   .build/<stem>/  — ephemeral build dir (per-manifest subdirs)
+#   <stem>.pdf      — canonical build output, regenerated each run
+#   <stem>.prior.pdf — previous-successful-build snapshot
+.build/
+*.prior.pdf
+re-paper.pdf
+
+# Pre-refactor build dir (now empty / dead).
 out/
