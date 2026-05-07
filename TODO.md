@@ -73,13 +73,25 @@ Gemini's reframe: present the sequence as forcing the reader's hand. *"Theorem 4
 
 **Action.** Spike, opus-4.7 model, no rush. Optional but high-value — broadens the bound's applicability without diluting it. Could fold into the paper if it lands cleanly; defer otherwise.
 
-### A7. "Strict sub-case of Bayesian-inverse-problems lineage" → softer mapping *(honest soften, Codex M2)*
+### A7. Track 1 → Stuart-school reduction *(spike PARTIAL — strengthening landed, Codex M2)*
 
-**Verified.** The phrase appears at `src/re/04-main-results.md:30` and `src/re/01-introduction.md:17`. We claim Track 1 "contains the existing literature as a strict sub-case." But Stuart-school posterior stability bounds perturbations of data/prior/likelihood maps; we bound goal-conditional displacement on a post-update law (different object, with chain-rule bridging). The conjugate-Gaussian Class 1 instantiation does recover the canonical cascade constant — but exact-recovery in one canonical example isn't a containment of the entire lineage.
+**Status: PARTIAL — strengthening succeeded.** Spike report at `spikes/A7-stuart-school-mapping/report.md` (Opus, 2026-05-07). My initial soften-recommendation in this slot was the AGENTS §3.1 failure mode — once the right transport-inequality lemma was named, a clean theorem-level reduction fell out.
 
-**Strengthening attempt fails.** I don't see how to defend "strict sub-case" without a reduction theorem mapping all Stuart-school posterior-stability statements into our framework. Such a reduction may exist but isn't in our paper. The conjugate-Gaussian witness is real; the strict-sub-case claim is the over-reach.
+**The result.** Lemma A (Lipschitz pushforward of $T_2$, textbook; Villani 2009 Thm 22.10 / Bobkov-Götze 1999) plus Theorem A7.1' (Class-1 reduction) give a structural mapping: under the canonical Stuart-school hypothesis stack — Lipschitz posterior on the deterministic update map + sub-Gaussian/LSI concentration on the conditional data law — Track 1's $C_{T_2}$ equals $2L_{\text{post}}^2/\rho_{\text{noise}}$, the Stuart-school cascade constant **across the full Strand 2 hypothesis space**, not only the conjugate-Gaussian instance. This sharpens the existing related-work characterization (Hosseini-Hsu-Taghvaei as "closest single-paper match" → all of Strand 2 fits the same structural slot).
 
-**Action.** Replace "strict sub-case" claim with: *"Track 1 recovers the canonical Stuart-school cascade constant `2L_post²/ρ_LSI` exactly in the conjugate-Gaussian Class 1 (Separated) case (verified in Appendix C); Track 1's machinery thereby connects directly to the Bayesian-inverse-problems lineage without relying on it."* Two-line replacement at each of the two sites. Honest soften; replaces an over-claim with the actually-true thing.
+**Boundary mapped (failed direction documented).** (SC-strong) — Track 1 reducing every Stuart-school output to a Track-1 corollary — fails for structural reasons (averaged vs pointwise object mismatch, hypothesis-import vs hypothesis-derivation, results outside Track 1's reach: matching lower bounds, multi-metric, sub-Lipschitz, contraction rates, randomized models). §3-§4 of the spike report document the boundary; future agents shouldn't re-attempt without new evidence.
+
+**Honest claim.** *"Track 1 generalizes the Stuart-school cascade across the full Stuart-school hypothesis space"* — neither "strict sub-case" (too strong) nor "conjugate-Gaussian recovery" (too weak).
+
+**Substantive action items from the spike** (each warrants Joseph's read before applying):
+
+- *(A7-i) Replace prose at `src/re/01-introduction.md:17`* — switch "strict sub-case" framing to "generalizes the cascade." Spike §6.1 has the proposed replacement text.
+- *(A7-ii) Replace Remark at `src/re/04-main-results.md:30`* — same substitution at theorem-level. Spike §6.2 has the proposed replacement text.
+- *(A7-iii) Add `^sec-stuart-school-reduction` subsection to `src/re/E-proofs.md`* — Lemma A + Theorem A7.1' + proofs. ~25-30 lines new appendix material. Spike §2 has the full math.
+- *(A7-iv) Sharpen Strand 2 paragraph in `src/re/F-related-work-extended.md`* — make the structural-slot reading explicit instead of single-paper-closest framing. Spike §6.4.
+- *(A7-v) Notation clarification at `src/re/C-conjugate-gaussian-numerics.md`* — current `\rho_{\text{LSI}} := 1/\sigma^2` is the noise concentration (Stuart-school cascade denominator), not the LSI constant of the marginal observation law. The math is correct; the symbol-meaning mismatch is worth one-line clarification. Knock-out-sized.
+
+A7-v is small enough to be a knock-out alongside A3/A4. A7-i through A7-iv are substantive — recommend doing them as a single coherent commit ("integrate Stuart-school reduction theorem") since they share a common edit theme.
 
 ### Folds-into / no-new-action notes
 
