@@ -481,3 +481,18 @@ The umbrella build interface refactored at commit `d24c9e8` (`SPEC-build-refacto
 The umbrella's `refs/entries/` is the source of truth post-refactor; per-paper `refs.bib` files were the migration artifact. Migrating those last keys closes out the F1.4 paper-side migration entirely.
 
 CLI gained cwd-aware behavior — from inside your paper-dir, `bin/build` (no args) now builds all your manifests. `bin/build <stem>` from cwd builds one. The umbrella forms (`bin/build <paper-dir> [<stem>]`, `bin/build --all`) still work.
+
+---
+
+## NeurIPS Paper Checklist — 2026-05-06 (build-pipeline owner)
+
+The paper is missing the required NeurIPS Paper Checklist. Recipe + rationale dropped at `CHECKLIST.md` in this paper-dir — read it first. The build pipeline supports the wiring (proven on 00-test-paper and 02-unified-convergence-rl); what's left is per-paper-agent work.
+
+A paper without the checklist is desk-rejected, so this needs to ship before submission.
+
+- [ ] Read `CHECKLIST.md` (this paper-dir).
+- [ ] Copy `common/checklist.tex` → `src/checklist.tex` and trim the instruction block per the recipe.
+- [ ] Fill in every answer (`\answerYes{}` / `\answerNo{}` / `\answerNA{}` + 1–2 sentence justification each, including for `\answerNA{}`).
+- [ ] Add the `Checklist` row as the last row of `OUT.llm-hallucinate-neurips-2026.md` (after Bibliography and Appendix rows).
+- [ ] Build and verify the checklist renders as the final pages of the PDF.
+- [ ] `git mv CHECKLIST.md _archive/CHECKLIST-2026-05-06.md` once accomplished.

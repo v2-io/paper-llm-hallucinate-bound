@@ -6,9 +6,9 @@ We work with goal-conditioned probabilistic models in a Bayesian-update setting.
 
 The *goal-conditional bias* measures the displacement of the goal-conditional law from the goal-marginal:
 
-$$\|\Delta M_{\text{bias}}(G)\| \;:=\; \|P_{M_{\tau^+}|e_\tau, M_{\tau^-}, G},\; P_{M_{\tau^+}|e_\tau, M_{\tau^-}}\|_{\mathcal{M}},$$ ^eq-bias-quantity
+$$\|\Delta M_{\text{bias}}(G)\| \;:=\; d_{\mathcal{M}}\!\left(P_{M_{\tau^+}|e_\tau, M_{\tau^-}, G},\; P_{M_{\tau^+}|e_\tau, M_{\tau^-}}\right),$$ ^eq-bias-quantity
 
-a random variable in $G$. Throughout, $\|\cdot\|_{\mathcal{M}}$ denotes either the Wasserstein distance $W_2$ on the induced model-distribution (Track 1) or the Fisher-Rao geodesic distance $d_{FR}$ on the statistical-manifold sub-case (Track 2). Euclidean-on-parameters is the choice [[#^sec-no-go]] rules out.
+a random variable in $G$. Throughout, $d_{\mathcal{M}}(\cdot, \cdot)$ denotes either the Wasserstein distance $W_2$ on the induced model-distribution (Track 1) or the Fisher-Rao geodesic distance $d_{FR}$ on the statistical-manifold sub-case (Track 2). Euclidean-on-parameters is the choice [[#^sec-no-go]] rules out.
 
 ### Goal/Update Coupling Class ^sec-architectural-classification
 
@@ -20,7 +20,7 @@ Architectures partition by whether $G$ has a causal path into the belief-update 
 > |:------------------------|:-----------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------|
 > | **Class 1 (Separated)** | Holds by construction — estimator has no causal path from $G$                | Kalman filter + LQR; modular RL with separate world model                                            |
 > | **Class 2 (Partial)**   | Holds for some pathways, fails for others                                    | Biological cortex; hybrid systems with separate preprocessing                                        |
-> | **Class 3 (Coupled)**   | Fails by construction — $G$ is causally upstream of every computation        | Transformer LLM (attention processes goals and observations together — [[#^lem-attention-coupled]]) |
+> | **Class 3 (Coupled)**   | Fails by construction — $G$ is causally upstream of every downstream output computation | Transformer LLM (attention processes goals and observations together — [[#^lem-attention-coupled]]) |
 
 Class 1 (Separated) is the architectural-separation case studied throughout Bayesian inverse-problems theory. Class 3 (Coupled) is the case the existing hallucination-theory lineage doesn't engage geometrically. Class 2 (Partial) is genuinely intermediate — hybrid LLM systems with retrieval, tools, scratchpads, or external memory — and lives at the system level rather than the architecture level. The Pearl-blanket reading \cite{bruineberg-dolega-dewhurst-baltieri-2022-bbs} of the Markov-blanket apparatus grounds the partition; we do not adopt the Friston-blanket metaphysical reading.
 
@@ -28,7 +28,7 @@ The bound's architectural-corollary form ([[#^eq-arch-corollary-informal]]) fact
 
 $$\kappa_{\text{processing}} \;:=\; \frac{I(G;\,M_{\tau^+} \mid e_\tau,\, M_{\tau^-})}{I(G;\,\Omega_\tau \mid e_\tau,\, M_{\tau^-})}.$$ ^eq-kappa-processing
 
-Conditioning on $M_{\tau^-}$ matters: prior correlation between goals and prior model state — present even in Class 1 — would inflate the measure otherwise. For Class 1, the data-processing inequality on the chain $G \to \Omega_\tau \to M_{\tau^+}$ (Markov conditional on $(e_\tau, M_{\tau^-})$) gives $\kappa_{\text{processing}} \le 1$ automatically. For Class 2 and Class 3, $\kappa_{\text{processing}} \le 1$ is a named structural commitment; the parrot architecture $M_{\tau^+} := G$ with $G \perp\!\!\!\perp \Omega_\tau$ given $(e_\tau, M_{\tau^-})$ produces $\kappa_{\text{processing}} = \infty$, explicitly outside scope.
+Conditioning on $M_{\tau^-}$ matters: prior correlation between goals and prior model state — present even in Class 1 — would inflate the measure otherwise. For Class 1, the data-processing inequality on the chain $G \to \Omega_\tau \to M_{\tau^+}$ (Markov conditional on $(e_\tau, M_{\tau^-})$) gives $\kappa_{\text{processing}} \le 1$ automatically. For Class 2 and Class 3, $\kappa_{\text{processing}} \le 1$ is a named structural commitment; the parrot architecture $M_{\tau^+} := G$ with $G \perp\!\!\!\perp \Omega_\tau$ given $(e_\tau, M_{\tau^-})$ produces $\kappa_{\text{processing}} = \infty$, explicitly outside scope. *Convention.* When both numerator and denominator vanish (no transferred goal-information *and* no residual ambiguity, e.g., a Class 1 architecture on goal-orthogonal evidence), set $\kappa_{\text{processing}} := 0$; the bound's right-hand side is then trivially zero.
 
 ### Axioms ^sec-axioms
 

@@ -11,7 +11,11 @@ The umbrella theorem bounds the goal-conditional displacement of the post-update
 >
 > *(Track 1, transport-inequality):* Under additional (H2$'$) — a Talagrand $T_2$ inequality on the post-update law — $C = \sqrt{C_{T_2}}$ with metric $W_2$. The constant $C_{T_2}$ recovers the canonical Stuart-school cascade value $2 L_{\text{post}}^2/\rho_{\text{LSI}}$ as a special case under standard log-Sobolev concentration.
 >
-> *(Track 2, Fisher-Rao):* Under additional (H4$'$) — uniform-locality on the goal-conditional slice-wise KL — $C = \sqrt{2}$ with metric $d_{FR}$. The constant is universal, dimension-free, and carries no domain-specific parameters.
+> *(Track 2, Fisher-Rao):* Under (PI)+(R)+(K) the bound holds with metric $d_{FR}$ and a constant supplied by either of two universal forms — both forced by Čencov uniqueness, both dimension-free, neither carrying domain-specific parameters:
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;*locally tight* — under additional (H4$'$) at parameter $\delta_\star$, $C = \sqrt{2(1+R(\delta_\star))}$ with explicit $R(\delta_\star) \to 0$ as $\delta_\star \to 0$ (locally tight at $\sqrt 2$ in the limit; sharpness in [[#^thm-fr-uniqueness]](b));
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;*globally valid* — under (PI) alone (no (R), no (K), no (H4$'$)), $C = 2$ throughout, sharp via a symmetric $N$-point witness as $N \to \infty$ ([[#^thm-track2-global]] in [[#^sec-track2-companions]]; the $\sqrt 2$ overhead is exactly the chord-arc factor at the unit $L^2$-sphere's antipode in squared-distance form).
 
 > [!hypothesis] (H2$'$) Talagrand $T_2$ on the post-update law ^h2-prime
 > The post-update law $P_{M_{\tau^+}\mid e, M_{\tau^-}}$ satisfies $W_2^2(P,\, P_{M_{\tau^+}\mid e, M_{\tau^-}}) \le C_{T_2} \cdot \mathrm{KL}(P \,\|\, P_{M_{\tau^+}\mid e, M_{\tau^-}})$ for all probability measures $P$. Sufficient conditions in [[#^sec-h2-prime-suff]]: log-Sobolev on the post-update density (Otto-Villani $C_{T_2} = 2/\rho_{\text{LSI}}$); dimension-free sub-Gaussian Lipschitz concentration \cite{gozlan-2009-t2-characterization}.
@@ -44,14 +48,14 @@ The proof is short: a chart rescaling $\phi \mapsto a\phi$ scales the chart-Eucl
 
 ### Čencov uniqueness and sharpness ^sec-fr-uniqueness
 
-Track 2's constant $\sqrt{2}$ is not just universal under (PI)+(R)+(K) — it is the *unique sharp* such constant.
+The no-go forces a coordinate-invariance commitment if a universal constant is wanted at all; (PI)+(R)+(K) is the natural commitment for an information-coordinate cascade; and Čencov uniqueness within that commitment leaves *no further freedom* — the metric is forced (Fisher-Rao) and the constant is forced ($\sqrt{2}$). The trajectory has no choice points: each step rules out alternatives until only one remains.
 
 > [!theorem] Uniqueness and sharpness of the Fisher-Rao $+\sqrt{2}$ bound ^thm-fr-uniqueness
 > Let $\mathcal{M}$ be a statistical-manifold sub-case (H1), and let the bound take the umbrella form $\mathbb{E}\,d_{\mathcal{M}}(\Delta M_{\text{bias}}) \le C\sqrt{I(G; M_{\tau^+}\mid e_\tau, M_{\tau^-})}$ under the constraints (PI)+(R)+(K). Then:
 >
 > *(a)* $d_{\mathcal{M}}$ is uniquely the Fisher-Rao geodesic distance.
 >
-> *(b)* No constant $C < \sqrt{2}$ uniformly bounds $\mathbb{E}\,d_{FR}/\sqrt{I_M}$ across the (H4$'$) regime: there exist conjugate-Gaussian Class 1 instances on which $\mathbb{E}\,d_{FR}^2/I_M \to 2$ as the goal variation shrinks at fixed $I_M$. Hence $C = \sqrt{2}$ is the unique sharp upper-bound constant under (PI)+(R)+(K)+(H4$'$).
+> *(b)* No constant $C < \sqrt 2$ uniformly bounds $\mathbb{E}\,d_{FR}/\sqrt{I_M}$ across the (H4$'$) regime: a symmetric two-point witness $G \in \{-a, +a\}$ uniform on the conjugate-Gaussian Class 1 family delivers $\mathbb{E}\,d_{FR}/\sqrt{I_M} \to \sqrt 2$ as $a \to 0$. The two-point construction keeps $d_{FR}$ exactly constant across goal slices by symmetry, so Jensen is tight and the first-moment sharpness holds directly. $C = \sqrt 2$ is the unique sharp upper-bound constant under (PI)+(R)+(K)+(H4$'$).
 
 Proof in [[#^sec-fr-uniqueness-proof]]. Part (a) is Čencov's 1982 uniqueness theorem applied to $\mathcal{M}$: the Fisher information metric is the unique (up to global positive scalar) Riemannian metric invariant under Markov morphisms. Part (b) is direct verification on the conjugate-Gaussian saturation.
 
@@ -79,4 +83,4 @@ The umbrella theorem bounds displacement by *transferred* goal-information. The 
 
 *Class 2 (Partial) and Class 3 (Coupled) require (H$_\kappa$) as a named structural commitment.* Two clean sufficient conditions and a parrot-architecture worst-case witness ($\kappa_{\text{processing}} = \infty$ when $M_{\tau^+} := G$ on goals orthogonal to the latent world-state) are documented in [[#^sec-h-kappa-suff]]. The unconditional theorem still bounds parrot-architecture displacement directly by transferred information; the $\kappa \times \mathcal{A}$ factorization just doesn't apply.
 
-*The realized $\kappa_{\text{processing}}$ is empirically accessible.* A behavioral two-goal probe — run the architecture on a fixed event set under two goal states, measure divergence of the epistemic content of the response — gives a lower bound on $\kappa_{\text{processing}}$ at the operating point. For architectures with explicit attention or routing, activation-level mediation analyses give a tighter handle. Both are out of scope for the present theory paper.
+*Transferred information has a closed-form empirical estimator under binary-uniform goal probing.* For $G \in \{g_1, g_2\}$ uniform — the natural two-goal probe protocol — the transferred goal-information equals the Jensen-Shannon divergence of the goal-conditional response distributions: $I(G;\,M_{\tau^+}\mid e_\tau, M_{\tau^-}) = \mathrm{JSD}(P_{M_{\tau^+}\mid g_1},\,P_{M_{\tau^+}\mid g_2})$. JSD is directly Monte-Carlo estimable from response samples under each goal state, so the unconditional theorem gives an *operational* bound $\mathbb{E}\,\|\Delta M_{\text{bias}}\| \le \sqrt{2\,\widehat{\mathrm{JSD}}}$ for the binary-probe diagnostic — no $\kappa$-factorization needed. The factorized form requires additionally lower-bounding $I(G;\Omega \mid e, M_{\tau^-})$, which depends on architecture-side modeling (representation-engineering, steering-vector, or mechanistic-interpretability methods on attention-pattern analysis); we revisit this in [[#^sec-conclusion]] as a primary future direction.
