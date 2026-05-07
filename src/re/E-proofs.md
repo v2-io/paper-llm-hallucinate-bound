@@ -129,27 +129,37 @@ The upshot: once we adopt (PI) at full Markov-morphism strength, plus Riemannian
 ### Coupled-class attention connectivity — full proof ^sec-attention-coupled-proof
 
 > [!proof]
-> *Proof of [[#^lem-attention-coupled]].* By induction on layer depth.
+> *Proof of [[#^lem-attention-coupled]].* By induction on layer depth, in the unified causally-aggregated-mixer form.
 >
-> *Layer 0 (embedding).* $h_0^{(i)}$ depends only on $X_i$ — the position-$i$ token embedding. Goal positions $i_G$ produce embeddings $h_0^{(i_G)}$ that are functions only of the goal tokens at those positions; same for evidence positions $i_E$. No cross-position dependence yet.
+> *Layer 0 (embedding).* $h_0^{(i)}$ depends only on $X_i$. Goal embeddings $h_0^{(i_G)}$ are functions only of the goal tokens at those positions; same for evidence positions $i_E$. No cross-position dependence yet.
 >
-> *Layer $\ell \ge 1$.* A standard transformer block (pre-LN or post-LN) computes
+> *Layer $\ell \ge 1$.* The per-position update $h_\ell^{(j)} = h_{\ell-1}^{(j)} + F_\ell^{(j)}\bigl(\{h_{\ell-1}^{(i)}\}_{i \le j};\,\theta\bigr) + G_\ell\bigl(h_{\ell-1}^{(j)};\,\theta\bigr)$ induces a directed position-graph with two edge types: (i) *same-position* residual edge $h_{\ell-1}^{(j)} \to h_\ell^{(j)}$ always present; (ii) *cross-position* mixer edges $h_{\ell-1}^{(i)} \to h_\ell^{(j)}$ present whenever $\partial F_\ell^{(j)}/\partial h_{\ell-1}^{(i)} \ne 0$, i.e., whenever (★) holds at $(j, i)$.
 >
-> $h_\ell^{(j)} = h_{\ell-1}^{(j)} + \mathrm{Attn}_\ell(\mathrm{LN}(h_{\ell-1}))^{(j)} + \mathrm{MLP}_\ell(\mathrm{LN}(h_{\ell-1}^{(j)}))$,
+> *Inductive claim.* For every $\ell \ge 0$ and every input position $i \le j$ along which (★) holds at some intermediate layer, $h_\ell^{(j)}$ has a directed-graph path back to input position $i$.
 >
-> where LayerNorm and the MLP are *position-wise* (the operation at position $i$ depends only on $h_{\ell-1}^{(i)}$, not on other positions). This induces a directed position-graph with two edge types at each layer: (i) a *same-position* residual edge $h_{\ell-1}^{(j)} \to h_\ell^{(j)}$ always present (via the residual stream); (ii) *cross-position* attention edges $h_{\ell-1}^{(i)} \to h_\ell^{(j)}$ present whenever $\mathrm{Attn}_\ell^{(j,i)}(\theta) \ne 0$. Position-wise LayerNorm and MLP preserve both edge types.
+> *Inductive step.* The same-position residual chain gives $i = j$. For $i \ne j$ with $i \le j$, (★) at any single layer $\ell' \le \ell$ along the path gives a cross-position edge $h_{\ell'-1}^{(i)} \to h_{\ell'}^{(j)}$, which composes with the residual chain on either side to yield a directed-graph path from input position $i$ to $h_\ell^{(j)}$.
 >
-> *Inductive claim.* For every $\ell \ge 0$ and every input position $i \le j$, $h_\ell^{(j)}$ has a directed-graph path back to position $i$ in the input.
->
-> *Inductive step.* The same-position residual chain gives $i = j$. For $i \ne j$ with $i \le j$, non-degenerate attention at any single layer $\ell' \le \ell$ along the path gives a cross-position edge $h_{\ell'-1}^{(i)} \to h_{\ell'}^{(j)}$, which composes with the residual chain on either side to yield a directed-graph path from input position $i$ to $h_\ell^{(j)}$.
->
-> *Coupled-class conclusion.* For any goal position $i_G \le j$, $h_\ell^{(j)}$ has a path back to position $i_G$ in the input whenever attention is non-degenerate on the $(j, i_G)$ edge at some layer $\ell' \le \ell$. So under non-degenerate attention, $G$ (encoded at positions $i_G$) is causally upstream of every quantity contributing to a post-update model state read off from position $j \ge \max(i_G \cup i_E)$. Class 3 (Coupled) by construction.
->
-> *Robustness to architectural variants.*
-> - RMSNorm, GroupNorm, FlashAttention preserve the position-graph: position-wise normalization in the first two cases; mathematically-equivalent attention implementation in the third.
-> - Causal masking preserves $\mathrm{Attn}_\ell^{(j, i_G)} \ne 0$ for $i_G \le j$ — the regime the lemma covers.
-> - Sliding-window or sparse attention preserves connectivity by composition across layers when the window/sparsity pattern admits a multi-hop path from $i_G$ to $j$, which is the case for trained LLMs in their operating regime.
-> - Architectures with explicit goal-to-output attention masking, or token-dropping at intermediate layers, fall outside the lemma's scope and are appropriately Class 2 (Partial). $\square$
+> *Coupled-class conclusion.* For every goal position $i_G \le j$, $h_\ell^{(j)}$ has a path back to position $i_G$ whenever (★) holds at $(j, i_G)$ at some layer. So $G$ (encoded at positions $i_G$) is causally upstream of every quantity contributing to a post-update model state read off from position $j \ge \max(i_G \cup i_E)$. Class 3 (Coupled) by construction. $\square$
+
+##### Per-architecture verifications of (★) ^sec-arch-instantiations-proof
+
+Each architecture in [[#^cor-arch-instantiations]] satisfies (★) generically; the verifications are short and architecture-specific.
+
+*(a) Self-attention.* $F_\ell^{(j)} = \sum_i \alpha_{ji}^{(\ell)}(h_{\ell-1}) V_\ell h_{\ell-1}^{(i)}$ with softmax weights $\alpha_{ji} > 0$. Per-source partial $\partial F_\ell^{(j)}/\partial h_{\ell-1}^{(i)} = \alpha_{ji}^{(\ell)} V_\ell$ + softmax-derivative cross-terms. Strictly positive softmax + generically non-singular value projection $\Rightarrow$ (★).
+
+*(b) Linear attention* \citep{katharopoulos-2020-linear-attention}*.* $F_\ell^{(j)}$ is a kernel-weighted sum with per-source factor $\phi(K h^{(i)})^\top \phi(Q h^{(j)}) V h^{(i)}$. (★) holds when $\phi$ is non-vanishing on the operating set: standard choices $\phi = \mathrm{elu}+1$, $\phi = \exp$ are strictly positive.
+
+*(c) Selective state-space models / Mamba.* Unrolling the recurrence: $y_\ell^{(j)} = C_\ell^{(j)} \sum_{i \le j} \bigl(\prod_{k=i+1}^j \bar A_\ell^{(k)}\bigr)\bar B_\ell^{(i)} x_\ell^{(i)}$. Per-source partial leading factor $C_\ell^{(j)}\prod \bar A \cdot \bar B_\ell^{(i)}$. Under standard parameterization $\bar A = \exp(\Delta A)$ with $A < 0$ diagonal (HiPPO-style) and $\Delta = \mathrm{softplus}(\cdot) > 0$, eigenvalues lie in $(0,1)$ — non-singular for every $k$. $\bar B$ and $C$ generically non-zero. Selectivity is *gain modulation* in a one-parameter family, not a path-cutting routing decision; quantitative attenuation lives in $\kappa_{\text{processing}}$.
+
+*(d) RWKV.* Time-mixing $\mathrm{wkv}_t = \frac{\sum_{i<t}e^{-(t-1-i)w + k_i}v_i + e^{u+k_t}v_t}{\sum_{i<t}e^{-(t-1-i)w+k_i}+e^{u+k_t}}$ has strictly-positive per-source weight $e^{-(t-1-i)w + k_i}$. (★) holds.
+
+*(e) RetNet.* $S_n = \gamma S_{n-1} + k_n^\top v_n$, $y_n = q_n S_n$ with $\gamma \in (0,1)$ unrolls to $y_n = q_n \sum_{i \le n} \gamma^{n-i} k_i^\top v_i$. Per-source partial $q_n\gamma^{n-i}k_i^\top$ generically non-zero.
+
+*(f) Long-convolution / Hyena.* $y_j = \sum_{i \le j} h_{j-i} x_i$. Per-source partial is the kernel value $h_{j-i}$, non-zero under full causal support.
+
+*Robustness to common variants.* RMSNorm / GroupNorm / FlashAttention preserve the position-graph (position-wise normalization or mathematically-equivalent attention). Causal masking preserves $\partial F_\ell^{(j)}/\partial h_{\ell-1}^{(i_G)} \ne 0$ for $i_G \le j$. Sliding-window or sparse attention preserves connectivity by multi-hop composition when the window pattern admits a path.
+
+*Class 2 boundary.* Hard-routing MoE-attention with goal-conditional partitioning, token-dropping at intermediate layers, vanishing-feature-map linear attention ($\phi(x) = \mathrm{ReLU}(x)$ on negative inputs), and SSM state-collapse ($\Delta \to \infty$) fall outside (★). State-collapse is a $\kappa_{\text{processing}}$ phenomenon, not a graph-path one — structural Class 3 still holds; quantitative usefulness is small. Strictly goal-blind retrieval components yield system-level Class 2.
 
 [[#^lem-attention-coupled]] establishes a *downstream-output graph-reachability* claim: at every layer and every position causally downstream of the goal and evidence under standard causal masking, the activation has a directed-graph path back to at least one goal position. *Three caveats:*
 
