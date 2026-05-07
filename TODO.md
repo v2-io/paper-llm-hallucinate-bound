@@ -4,6 +4,98 @@
 
 ---
 
+## Opus de-novo audit triage — 2026-05-07 (claude-opus-4-7, 1M context)
+
+Audit at `audits/audit-2026-05-06-claude-opus47.md` (382 lines: 8 M-tier + 8 A-tier + 8 S-tier + 10 C-tier + 10 N-tier). The auditor verified all load-bearing math (chain rule, chord-arc, Čencov reduction, no-go, Hellinger, conjugate-Gaussian) and found the math sound. Most findings are tightening; two flagged for priority by the auditor: M1/A1 (the $\sqrt 2$/(H4$'$) headline framing) and S2 ("Track 5.5" naming inconsistency).
+
+**Already answered by prior spikes — no new action.** Three findings (M7, A5, C4) ask about Track 1's recovery of the Stuart-school cascade constant. The A7 spike (`spikes/A7-stuart-school-mapping/report.md`, commit `6b94a72`) already established Theorem A7.1' which generalizes the Stuart-school cascade across the full Strand 2 hypothesis space — strictly stronger than what M7/A5/C4 ask for. When the A7-i through A7-iv integration items land, M7/A5/C4 are resolved.
+
+### O1. (H4$'$) vs $\pi/\sqrt 2$ — spike-worthy strengthening *(M1/A1, auditor's #1 priority)*
+
+**The question.** Theorem 1's Track 2 row says $C = \sqrt 2$ "universal, dimension-free, no domain-specific parameters." This holds *under (H4$'$) uniform-locality* — `ess sup_g KL(P_M+|G=g || P_M+) ≤ δ_⋆` for some $δ_⋆ ∈ (0,1)$. The auditor's structural concern: (H4$'$) is likely *false* in the LLM application's operating regime (Class 3 Coupled with adversarial / rare goals → at least one $g$ with large $\mathrm{KL}_g$ violates the ess-sup uniformly). So $\sqrt 2$ is not the LLM-operating constant; the global $\pi/\sqrt 2$ backstop is. The current paper presents the global as a "fallback" — but for the headline application it's the actual bound.
+
+**Why this is spike-worthy** (per AGENTS §3.1 escalation paragraph): the auditor's recommendation — *"rebrand as 'two universal Fisher-Rao constants — locally-tight $\sqrt 2$ in the uniform-local regime, globally-valid $\pi/\sqrt 2$ throughout — both forced by Čencov'"* — is a presentation strengthening (move global into the headline). But there's a *deeper* strengthening hidden behind that move:
+
+- *(direction A)* Can we find a hypothesis weaker than (H4$'$) that still yields $\sqrt 2$ — particularly one that holds *structurally* in the LLM application (e.g., bounded attention temperature, bounded softmax-cap, bounded-likelihood-ratio architecture conditions) rather than as a regime-condition on the goal-conditional KL?
+- *(direction B)* Can we close part of the $\sqrt 2$-vs-$\pi/\sqrt 2$ gap globally — i.e., a bound $\mathbb E[d_{FR}^2] \le C(I_M)\,I_M$ where $C$ smoothly interpolates between 2 (small $I_M$) and $\pi^2/2$ (antipode), strictly tighter than the flat $\pi^2/2$? My back-of-envelope: chord-arc gives the closed form $d_{FR}^2 = 16\arcsin^2(\mathrm{Hel}/\sqrt 2)$ on the unit $L^2$-sphere. Tsybakov 2.4 is loose by factor 2 at small KL (locally $\mathrm{Hel}^2 \approx \mathrm{KL}/4$, while Tsybakov's $\mathrm{Hel}^2 \le \mathrm{KL}/2$). A sharper Hel-KL inequality + the closed-form chord-arc might compose into a tight interpolant.
+- *(direction C)* Boundary case — find the fundamental reason $\pi/\sqrt 2$ is genuinely the best globally-valid constant under (PI) alone, and document it.
+
+All three are legitimate spike outcomes. The trichotomy from §5.4 applies: succeed-beyond (a strictly-tighter global constant), succeed-at-claim (recover $\sqrt 2$ under structural-LLM hypothesis), succeed-at-finding-the-boundary (why $\pi/\sqrt 2$ is sharp).
+
+**Recommended action.** Launch an Opus spike on this (analogous to A7's). Output to `spikes/O1-tighter-track2-constants/report.md`. Worth the depth — the result lands directly in the paper's headline rate statement. I'm queuing rather than triage-resolving per the new §3.1 discipline.
+
+### O2. Bias-quantity notation $\|P, Q\|_{\mathcal M}$ → $d_{\mathcal M}(P, Q)$ *(M2)*
+
+**Knock-out.** `src/re/03-setup.md:9`'s `||P_M+|G, P_M+||_M` reads as a norm-of-two-distributions-separated-by-comma, which isn't standard. The body text already uses $W_2(P,Q)$ and $d_{FR}(P,Q)$ which compose with $d_{\mathcal M}(P,Q)$ cleanly. Replace the bias-quantity definition + propagate. ~5 occurrences, mechanical.
+
+### O3. "Track 5.5" / "Track 3 Hellinger" — non-monotone numbering *(S2, auditor's #2 priority)*
+
+**Knock-out.** `src/re/C-conjugate-gaussian-numerics.md:21,33` references "Track 5.5 Euclidean" with no Track 3, 4, or 5 defined. Likely leftover from earlier draft. Auditor's renaming proposal: keep Track 1 (Talagrand) + the Track 2 family (Track 2-FR locally-tight, Track 2-FRG global, Track 2-Hel Hellinger, Track 2-Eucl Euclidean translation). Or simpler: drop the Track-N numbering for the Euclidean translation entirely, just call it "Euclidean translation of Track 2" and refer by anchor. Either fine; latter is less typing.
+
+### O4. Lemma 3.5 caveat-placement + magnitude-vs-reachability sentence *(M8/A2/S8 — converges with my prior A4)*
+
+**Knock-out, folds with A4.** Three findings (M8 final paragraph, A2's "non-degenerate qualifier is quiet," S8's caveat-placement) all converge on: the structural/reachability-vs-magnitude distinction in Lemma 3.5 is in the body but quiet; reader of intro skims past it. Auditor's suggestion: one explicit sentence in the intro / table area that "structural classification is at the architectural level (what attention *can* do); the *quantitative* coupling magnitude $\kappa_{\text{processing}}$ requires additional assumptions." This folds cleanly with my prior A4 (prose-to-formal scope tightening for Lemma 3.5). One small edit at intro + one at the table; carry the magnitude-vs-reachability sentence too.
+
+### O5. Conjugate-Gaussian setup ambiguity around $\Omega|G$ *(M6)*
+
+**Knock-out.** `src/re/C-conjugate-gaussian-numerics.md:3` has two readings of $\Omega|G$ — (a) directly goal-conditional ignoring $\theta$, or (b) marginalizing over $\theta$. The math uses (a); a one-line clarification in the setup ("we treat $\Omega|G$ as goal-determined directly; the world-state $\theta$ enters only via the agent's prior, not the observation") removes the ambiguity. Pairs naturally with A7-v's notation clarification on $\rho_{\text{LSI}}$ in the same segment.
+
+### O6. Future-directions paragraph in conclusion is dense *(S7)*
+
+**Modest.** Single 6-sentence paragraph at `src/re/06-conclusion.md:9` lists five distinct future directions. Auditor: "either bullet them or pick the highest-leverage two and expand." Pairs naturally with the existing Codex H6 fix (move "empirically accessible κ" sentence into a more developed future-directions slot). Recommend: bullet the five, expand the two highest-leverage ($\kappa$-empirical-instantiation + extension-to-non-(H4$'$)-regime), trim the rest.
+
+### O7. KL-to-Fisher-Rao remainder $R_3(δ_⋆)$ — verify the $\mathbf I_{\min}^{-3/2}$ scaling *(M4)*
+
+**Modest spike-or-knock-out.** `src/re/E-proofs.md:39` gives $R_3(δ_⋆) = (\mathcal T_⋆/3)\sqrt{2δ_⋆/\mathbf I_{\min}^3}$. Auditor verified the structure but flagged: the cube of the geodesic norm $\|\delta\|^3$ converts to coordinate-norm with a $\mathbf I_{\min}^{-3/2}$ factor, plausibly correct but worth one explicit derivation line. Either: a per-paper-agent 5-minute check + one-line justification in the appendix (knock-out), or if the scaling turns out subtly different, it folds into the O1 spike's territory. Lean toward knock-out: spend 10 minutes checking, add the line.
+
+### O8. Sycophancy / activation-engineering literature anchors *(C1, C2, C3)*
+
+**Modest, valuable.** Auditor flags three empirical-LLM-literature gaps:
+- *C1 sycophancy* (Sharma et al. 2023, Perez et al. 2022, Wei et al. 2023) — the empirical referent for what the bound captures. One citation in intro framing or conclusion future-directions defuses "where's the empirical motivation?" pushback.
+- *C2 activation-engineering* (Zou et al. 2023 *Representation Engineering*, Turner et al. *Activation Addition*) — relevant when activation-mediation idea is introduced for $\kappa$-probing.
+- *C3 mechanistic interpretability* (Olsson et al. 2022 *In-context Learning and Induction Heads*) — grounds Lemma 3.5 in empirical attention-pattern observations.
+
+Each is 1 cite + 1 sentence. Cumulative: ~3 sentences across paper. Probably worth doing — directly addresses Codex's "rhetorical surface stronger than formal object" critique by tying the formal object to empirical phenomena it captures.
+
+### O9. Setup density / hypothesis-table / intro citation enumeration *(S1, S3, S4)*
+
+**Defer pending page-budget pressure.** Three suggestions for compression / ergonomics:
+- S1 cut citation enumeration in intro paragraphs 1-2 (Strand 1/2 lists already in §F)
+- S3 add schematic table mapping (PI/R/K/H1/H2$'$/H4$'$/H$_\kappa$) → which theorem each gates
+- S4 move (PI/R/K) axioms out of setup or tag as "Track 2-only"
+
+Body is at 9pp [OK]. Defer until/unless we want compression for some other reason.
+
+### O10. Auditor flagged-as-good — nothing to do *(A6, A8, M8 main, N7, N9, N10, robustness-to-architectural-variants)*
+
+**No-op.** Listed for the record:
+- A6: "one channel of hallucination" qualifier in conclusion limitations is the right scope-naming.
+- A8: "$\pi/\sqrt 2$ overhead is a *geometric maximum*, not a slack" — right framing.
+- M8 main: Lemma 3.5 graph-reachability is "exactly the right grade."
+- N7: $0\log 0 = 0$ convention named explicitly.
+- N9: double-citation for chain rule on abstract spaces.
+- N10: failed-routes appendix.
+- "Failed-routes documentation and the three-no-gos disambiguation are model-grade examples of negative-results discipline. I'd protect both from any compression pass." → noted; no compression on those.
+
+### Cosmetic nits *(N2, N4, N6, S5, S6)*
+
+- N2: $\kappa^*$ vs $\kappa_{\text{processing}}^*$ usage consistency
+- N4: $(H2')$ vs $(H_2^\prime)$ typesetting consistency
+- S5: $\citet$/$\citealt$/$\citep$ usage
+- S6: same prime/quote typesetting nit
+
+Lump into an "all-cosmetic-nits-pass" if/when convenient.
+
+### Suggested sequence
+
+1. **Launch O1 spike.** This is the high-leverage item. Three open directions (weaker hypothesis, tighter global, boundary-mapping) — same trichotomy framing as A7. Background, no rush.
+2. **Fold O4/O5 into prior knock-out batch** (alongside A3/A4/A7-v + Codex H6).
+3. **O2 + O3 + O7** as a separate small commit ("notation hygiene + remainder verification").
+4. **O8 sycophancy / activation-engineering / mechanistic-interpretability cites** as a separate connection-finding commit.
+5. **O6 future-directions restructure** at the same time as the abstract rewrite (Q1 from peer-feedback queue) — both are positioning moves on the conclusion / abstract.
+
+---
+
 ## De-novo audit triage — 2026-05-07 (Codex + Gemini)
 
 Two audits dropped in `audits/`:
