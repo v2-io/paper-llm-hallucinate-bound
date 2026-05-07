@@ -77,7 +77,7 @@ The umbrella theorem bounds displacement by *transferred* goal-information. The 
 
 **Remarks on [[#^cor-architectural-factorization]].**
 
-*The factorization is the contribution-headline.* Coupling strength $\kappa_{\text{processing}}$ × residual ambiguity $I(G;\Omega\mid e, M)$ — architecture × information. The unconditional theorem [[#^thm-umbrella]] is the structural backbone whose math holds without (H$_\kappa$); the corollary is the operational reading.
+*The factorization is the contribution-headline.* Coupling strength $\kappa_{\text{processing}}$ × residual ambiguity $I(G;\Omega\mid e, M)$ — architecture × information. [[#^thm-umbrella]]'s unconditional form is the structural backbone whose math holds without (H$_\kappa$); the corollary is the operational reading.
 
 *Class 1 (Separated) gives (H$_\kappa$) automatically.* The Markov chain $G \to \Omega_\tau \to M_{\tau^+}$ (conditional on $(e_\tau, M_{\tau^-})$) plus data-processing inequality yields $\kappa_{\text{processing}} \le 1$ by construction. (H$_\kappa$) is a derived consequence, not a commitment, for Class 1.
 
