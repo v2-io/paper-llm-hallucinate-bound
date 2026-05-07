@@ -26,9 +26,9 @@ The cascade is composed from textbook information-theoretic and transport-inequa
 One step.
 
 > [!lemma] KL-to-Fisher-Rao second-order expansion ^lem-kl-fr-expansion
-> On a statistical manifold with Fisher information metric $\mathbf{I}$, for nearby $P, Q$: $\mathrm{KL}(P \,\|\, Q) = \tfrac{1}{2}d_{FR}^2(P, Q) + O(d_{FR}^3)$.
+> On the *ambient L²-sphere of $\sqrt p$* equipped with the Fisher metric $\mathbf{I}$ (the maximal statistical manifold, of which every probability distribution is a point), for nearby $P, Q$: $\mathrm{KL}(P \,\|\, Q) = \tfrac{1}{2}d_{FR}^2(P, Q) + O(d_{FR}^3)$ in the Amari-Nagaoka spherical-arc convention.
 
-This is the infinitesimal form of the Bregman divergence on the exponential-family Fenchel geometry — exact at second order, tight in the small-information regime (\citealt{cover-thomas-2006-info-theory} §12.5; \citealt{amari-nagaoka-2000-info-geom} §3.7 Theorem 3.1). Apply [[#^lem-kl-fr-expansion]] slice-wise at each $G = g$ under (H4$'$) (every goal-conditional slice uniformly close to the goal-marginal on the manifold, so the expansion is sharp slice-wise with controlled remainder). Take expectation over $G$ and substitute [[#^lem-chain-rule]]:
+This is the infinitesimal form of the Bregman divergence on the exponential-family Fenchel geometry — exact at second order, tight in the small-information regime (\citealt{cover-thomas-2006-info-theory} §12.5; \citealt{amari-nagaoka-2000-info-geom} §3.7 Theorem 3.1). The ambient framing absorbs the goal-marginal-baseline-as-mixture concern: $P_{M_{\tau^+}\mid G=g}$ and $P_{M_{\tau^+}}$ (which is a goal-mixture, generally outside any parametric submanifold) are both points on the ambient L²-sphere by construction; the spherical-arc expansion applies regardless of submanifold structure. Apply [[#^lem-kl-fr-expansion]] slice-wise at each $G = g$ under (H4$'$) (every goal-conditional slice uniformly close to the goal-marginal in the ambient arc, so the expansion is sharp slice-wise with controlled remainder). Take expectation over $G$ and substitute [[#^lem-chain-rule]]:
 
 $$\mathbb{E}\bigl[d_{FR}^2(P_{M_{\tau^+}\mid G},\, P_{M_{\tau^+}})\bigr] \;\leq\; 2 \cdot I_M \cdot (1 + o(1)).$$
 

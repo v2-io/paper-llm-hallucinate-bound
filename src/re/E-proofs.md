@@ -163,7 +163,7 @@ Each architecture in [[#^cor-arch-instantiations]] satisfies $(\star)$ generical
 
 *(f) Long-convolution / Hyena.* $y_j = \sum_{i \le j} h_{j-i} x_i$. Per-source partial is the kernel value $h_{j-i}$, non-zero under full causal support.
 
-*Robustness to common variants.* RMSNorm / GroupNorm / FlashAttention preserve the position-graph (position-wise normalization or mathematically-equivalent attention). Causal masking preserves $\partial F_\ell^{(j)}/\partial h_{\ell-1}^{(i_G)} \ne 0$ for $i_G \le j$. Sliding-window or sparse attention preserves connectivity by multi-hop composition when the window pattern admits a path.
+*Robustness to common variants.* RMSNorm \citep{zhang-sennrich-2019-rmsnorm}, GroupNorm \citep{wu-he-2018-groupnorm}, and FlashAttention \citep{dao-2022-flashattention} preserve the position-graph (position-wise normalization or mathematically-equivalent attention). Causal masking preserves $\partial F_\ell^{(j)}/\partial h_{\ell-1}^{(i_G)} \ne 0$ for $i_G \le j$. Sliding-window or sparse attention preserves connectivity by multi-hop composition when the window pattern admits a path.
 
 *Class 2 boundary.* Hard-routing MoE-attention with goal-conditional partitioning, token-dropping at intermediate layers, vanishing-feature-map linear attention ($\phi(x) = \mathrm{ReLU}(x)$ on negative inputs), and SSM state-collapse ($\Delta \to \infty$) fall outside $(\star)$. State-collapse is a $\kappa_{\text{processing}}$ phenomenon, not a graph-path one — structural Class 3 still holds; quantitative usefulness is small. Strictly goal-blind retrieval components yield system-level Class 2.
 
