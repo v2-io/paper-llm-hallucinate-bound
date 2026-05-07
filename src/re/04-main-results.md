@@ -18,12 +18,10 @@ The umbrella theorem bounds the goal-conditional displacement of the post-update
 > &nbsp;&nbsp;&nbsp;&nbsp;*globally valid* — under (PI) alone (no (R), no (K), no (H4$'$)), the *ambient spherical-arc bound* $C = 2$ holds throughout — sharp via a symmetric $N$-point witness as $N \to \infty$ ([[#^thm-track2-global]] in [[#^sec-track2-companions]]; the $\sqrt 2$ overhead is exactly the chord-arc factor at the unit $L^2$-sphere's antipode in squared-distance form). On parametric submanifolds the ambient spherical arc is the chart-invariant pseudometric; submanifold-intrinsic geodesics may be longer (the local-tight regime is exactly where ambient and intrinsic agree at second order).
 
 > [!hypothesis] (H2$'$) Talagrand $T_2$ on the post-update law ^h2-prime
-> The post-update law $P_{M_{\tau^+}\mid e, M_{\tau^-}}$ satisfies $W_2^2(P,\, P_{M_{\tau^+}\mid e, M_{\tau^-}}) \le C_{T_2} \cdot \mathrm{KL}(P \,\|\, P_{M_{\tau^+}\mid e, M_{\tau^-}})$ for all probability measures $P$. Sufficient conditions in [[#^sec-h2-prime-suff]]: log-Sobolev on the post-update density (Otto-Villani $C_{T_2} = 2/\rho_{\text{LSI}}$); dimension-free sub-Gaussian Lipschitz concentration \cite{gozlan-2009-t2-characterization}.
+> $W_2^2(P,\, P_{M_{\tau^+}\mid e, M_{\tau^-}}) \le C_{T_2}\,\mathrm{KL}(P \,\|\, P_{M_{\tau^+}\mid e, M_{\tau^-}})$ for all $P$. Sufficient conditions in [[#^sec-h2-prime-suff]] (LSI, Otto-Villani; dimension-free sub-Gaussian Lipschitz concentration \cite{gozlan-2009-t2-characterization}).
 
 > [!hypothesis] (H4$'$) Uniform local regime ^h4-prime
-> $\mathrm{ess\,sup}_g\,\mathrm{KL}(P_{M_{\tau^+}\mid e, M_{\tau^-}, G=g}\,\|\,P_{M_{\tau^+}\mid e, M_{\tau^-}}) \le \delta_\star$ for some $\delta_\star \in (0, 1)$. Every goal-conditional slice — not merely the average — is uniformly close to the goal-marginal on the statistical manifold. (H4$'$) is strictly stronger than $\mathbb{E}_G[\mathrm{KL}_g] = I \ll 1$; small mean does not imply small ess-sup.
-
-*Adversarial / rare-high-KL goals.* (H4$'$)'s ess-sup form fails when even one rare goal $g$ produces a slice with large $\mathrm{KL}_g$ — the regime adversarial prompts (jailbreaks, persona injection) exploit. Outside (H4$'$), the *globally-valid* Track 2 constant $C = 2$ under (PI) alone (Theorem D.1) is the operating bound; the locally-tight $\sqrt 2$ does not apply.
+> $\mathrm{ess\,sup}_g\,\mathrm{KL}(P_{M_{\tau^+}\mid G=g}\,\|\,P_{M_{\tau^+}}) \le \delta_\star$ for some $\delta_\star \in (0, 1)$ — every goal-conditional slice uniformly close to the goal-marginal, not merely the average (strictly stronger than small-$I_M$). Adversarial / rare-high-KL prompts (jailbreaks, persona injection) exit (H4$'$); the global $C = 2$ bound (Theorem D.1) is the operating tool there.
 
 **Remarks on [[#^thm-umbrella]].**
 
@@ -50,18 +48,12 @@ The proof is short: a chart rescaling $\phi \mapsto a\phi$ scales the chart-Eucl
 
 ### Čencov uniqueness and sharpness ^sec-fr-uniqueness
 
-The no-go forces a coordinate-invariance commitment if a universal constant is wanted at all; (PI)+(R)+(K) is the natural commitment for an information-coordinate cascade; and Čencov uniqueness within that commitment leaves *no further freedom* — the metric is forced (Fisher-Rao) and the constant is forced ($\sqrt{2}$). The trajectory has no choice points: each step rules out alternatives until only one remains.
+The no-go requires a coordinate-invariance commitment if a universal constant is wanted at all; (PI)+(R)+(K) is the natural commitment for an information-coordinate cascade; and Čencov uniqueness within that commitment leaves little further freedom.
 
 > [!theorem] Uniqueness and sharpness of the Fisher-Rao $+\sqrt{2}$ bound (local) ^thm-fr-uniqueness
-> Let $\mathcal{M}$ be a statistical-manifold sub-case (H1), and let the bound take the umbrella form $\mathbb{E}\,d_{\mathcal{M}}(\Delta M_{\text{bias}}) \le C\sqrt{I(G; M_{\tau^+}\mid e_\tau, M_{\tau^-})}$ under the constraints (PI)+(R)+(K)+(H4$'$). Both endpoints of $d_{\mathcal{M}}$ — the goal-conditional slice and the goal-marginal baseline — are points on the ambient $L^2$-sphere of $\sqrt p$ (the maximal statistical manifold) by construction; under (H4$'$) the slices stay in a small neighborhood of the baseline where the ambient Fisher-Rao spherical arc agrees with submanifold-intrinsic geodesics at second order. Then:
->
-> *(a)* $d_{\mathcal{M}}$ is uniquely the Fisher-Rao geodesic distance (Amari-Nagaoka spherical-arc convention; coincides with submanifold-intrinsic geodesics at second order in the local regime).
->
-> *(b)* No constant $C < \sqrt 2$ uniformly bounds $\mathbb{E}\,d_{FR}/\sqrt{I_M}$ across the (H4$'$) regime: a symmetric two-point witness $G \in \{-a, +a\}$ uniform on the conjugate-Gaussian Class 1 family delivers $\mathbb{E}\,d_{FR}/\sqrt{I_M} \to \sqrt 2$ as $a \to 0$. The two-point construction keeps $d_{FR}$ exactly constant across goal slices by symmetry, so Jensen is tight and the first-moment sharpness holds directly. $C = \sqrt 2$ is the unique sharp upper-bound constant under (PI)+(R)+(K)+(H4$'$).
+> Under (H1)+(PI)+(R)+(K)+(H4$'$), in the umbrella form $\mathbb{E}\,d_{\mathcal{M}}(\Delta M_{\text{bias}}) \le C\sqrt{I(G; M_{\tau^+}\mid e_\tau, M_{\tau^-})}$: *(a)* $d_{\mathcal{M}}$ is uniquely the Fisher-Rao geodesic distance (Amari-Nagaoka spherical-arc convention); *(b)* $C = \sqrt 2$ is the unique sharp upper-bound constant — no $C < \sqrt 2$ holds uniformly across the (H4$'$) regime.
 
-Proof in [[#^sec-fr-uniqueness-proof]]. Part (a) is Čencov's 1982 uniqueness theorem applied to the natural categorical metric assignment of (PI): the Fisher information metric is the unique (up to a single global positive scalar) Riemannian metric satisfying Markov-morphism invariance across the category of standard parametric statistical models, and the induced metric on $\mathcal{M}$ inherits this assignment. Part (b) is direct verification on the conjugate-Gaussian saturation.
-
-**Remark.** Alternative chart-independent commitments (TV with Pinsker, Hellinger-as-divergence, $\chi^2$, Rényi) are all defeated: TV-Pinsker is non-tight (the constant is universal but the inequality is loose except at coincident measures); Hellinger-as-divergence and $\chi^2$-as-divergence violate (R); switching divergences on the right-hand side violates (K). The no-go ([[#^thm-no-go]]) rules out arbitrary chart-Euclidean norms, narrowing the candidate space to coordinate-invariant metrics; under the additional (PI)+(R)+(K) triple, Čencov uniqueness then selects Fisher-Rao + $\sqrt 2$.
+Part (a) follows from Čencov's 1982 uniqueness theorem applied to the natural categorical metric assignment of (PI). Part (b) is verified by a symmetric two-point witness on the conjugate-Gaussian Class 1 family: $G \in \{-a, +a\}$ uniform delivers $\mathbb{E}\,d_{FR}/\sqrt{I_M} \to \sqrt 2$ as $a/\sigma \to 0$ (the symmetry forces $d_{FR}$ exactly constant across slices, so Jensen is tight). Full proof + witness construction in [[#^sec-fr-uniqueness-proof]]. Alternative chart-independent commitments (TV, Hellinger-as-divergence, $\chi^2$, Rényi) are all defeated by (R)/(K) or non-tightness; the no-go narrows the candidate space, and (PI)+(R)+(K) selects Fisher-Rao + $\sqrt 2$.
 
 ### The architectural corollary ^sec-architectural-corollary
 

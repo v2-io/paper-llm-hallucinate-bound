@@ -35,14 +35,14 @@ Conditioning on $M_{\tau^-}$ matters: prior correlation between goals and prior 
 The universal-constant route ([[#^sec-track2-mechanism]], Track 2) commits to three axioms on the bound's metric $d_{\mathcal{M}}$:
 
 > [!hypothesis] (PI) Sufficient-statistic invariance across the natural category ^pi-axiom
-> The bias bound's metric is a *natural Riemannian-metric assignment* on the category of standard parametric statistical models — for each model in the category, a Riemannian metric, with the assignment commuting with congruent Markov morphisms (sufficient statistics) in the sense of \citet{cencov-1982-stat-decision}. The induced metric on $\mathcal{M}$ inherits this categorical assignment.
+> The bias bound's distance / divergence is a *natural assignment* on the category of standard parametric statistical models — for each model, a candidate distance or divergence — commuting with congruent Markov morphisms (sufficient statistics) in the sense of \citet{cencov-1982-stat-decision}. The induced object on $\mathcal{M}$ inherits this categorical assignment.
 
-(PI) at full Markov-morphism strength is the *categorical* invariance Čencov's uniqueness theorem requires: the assignment must respect every sufficient-statistic morphism across the category, not merely smooth coordinate changes on a single fixed $\mathcal M$. Smooth-coordinate invariance alone admits an infinite family of metrics; the strictly-stronger categorical Markov-morphism class singles out Fisher-Rao up to global scalar.
+(PI) at full Markov-morphism strength is the *categorical* invariance Čencov's uniqueness theorem requires: the assignment must respect every sufficient-statistic morphism across the category, not merely smooth coordinate changes on a single fixed $\mathcal M$. (PI) alone admits both Riemannian metrics and $f$-divergences as candidates (the global Fisher-Rao spherical-arc bound and the Hellinger backstop in [[#^sec-track2-companions]] are the two (PI)-only theorems); (R) below adds the Riemannian-metric specifier needed for Čencov's local uniqueness statement.
 
 > [!hypothesis] (R) Riemannian structure ^r-axiom
 > The bound's metric $d_{\mathcal{M}}$ derives from a smooth Riemannian metric on $\mathcal{M}$.
 
-(R) filters out divergence forms (TV, $\chi^2$, Hellinger-as-divergence) that satisfy (PI) as $f$-divergences but are not metric distances on $\mathcal{M}$ in the Riemannian sense.
+(R) restricts the (PI)-invariant candidates to Riemannian metrics specifically, filtering out divergence-form alternatives (TV, $\chi^2$, Hellinger-as-divergence) that are (PI)-invariant as $f$-divergences but are not metric distances in the Riemannian sense.
 
 > [!hypothesis] (K) KL second-order matching ^k-axiom
 > $\mathrm{KL}(P_\theta \,\|\, P_{\theta+\delta}) = \tfrac{1}{2}d_{\mathcal{M}}^2(P_\theta, P_{\theta+\delta}) + O(d_{\mathcal{M}}^3)$.
@@ -56,24 +56,4 @@ The transport-inequality route ([[#^sec-track1-mechanism]], Track 1) and the dim
 
 (H1) is satisfied by parametric Bayesian posterior families, exponential families, conjugate priors, and the parametric-belief-state subclass of LLMs that admits a natural distributional reading. The standard-Borel regularity is what makes the post-update chain rule (used in both Tracks) hold in the abstract-spaces form \cite[Theorem 3.4]{polyanskiy-wu-2024-info-theory}; \cite[Theorem 5.4]{gray-2011-entropy}.
 
-### Coupled-class autoregressive connectivity ^sec-attention-coupled
-
-The architectural classification's load-bearing application — that *plain decoder-only transformer attention, and more broadly modern autoregressive sequence models, are structurally Class 3 (Coupled)* — is a property of causally-aggregated cross-position mixing, not of any token-distribution-as-belief-state idealization.
-
-> [!lemma] Coupled-class autoregressive connectivity ^lem-attention-coupled
-> Let $\mathcal{G}_\theta$ be the directed computational graph of an autoregressive sequence model with parameters $\theta$. Suppose at every layer $\ell \ge 1$ each per-position update factors as $h_\ell^{(j)} = h_{\ell-1}^{(j)} + F_\ell^{(j)}\bigl(\{h_{\ell-1}^{(i)}\}_{i \le j};\,\theta\bigr) + G_\ell\bigl(h_{\ell-1}^{(j)};\,\theta\bigr)$, with $F_\ell^{(j)}$ a causally-aggregated cross-position mixer and $G_\ell$ position-wise. If goal positions $i_G$ and evidence positions $i_E$ satisfy $i_G \cap i_E = \emptyset$, then for every layer $\ell \ge 1$ and position $j \ge \max(i_G \cup i_E)$, $h_\ell^{(j)}$ has a directed-graph path back to every $i_G \le j$ whenever the *per-source non-degeneracy condition* $(\star)$ holds: for each $i \le j$, $\partial F_\ell^{(j)}/\partial h_{\ell-1}^{(i)}$ is generically non-zero on the operating set.
-
-> [!corollary] Named-architecture instantiations ^cor-arch-instantiations
-> Per-source non-degeneracy is satisfied generically by:
-> *(a)* plain decoder-only transformer attention (non-degenerate softmax attention weights, non-singular value projection);
-> *(b)* linear-attention transformers \citep{katharopoulos-2020-linear-attention} with non-vanishing feature map (e.g., $\phi = \mathrm{elu}+1$, $\phi = \exp$);
-> *(c)* selective state-space models / Mamba \citep{gu-dao-2024-mamba} (non-singular discretized $\bar A = \exp(\Delta A)$ with $A < 0$ diagonal, non-zero $\bar B$ and $C$);
-> *(d)* RWKV time-mixing \citep{peng-2023-rwkv} (positive time-decay);
-> *(e)* RetNet \citep{sun-2023-retnet} (decay $\gamma \in (0, 1)$);
-> *(f)* long-convolution / Hyena architectures \citep{poli-2023-hyena} (full-support causal kernel).
->
-> Each is structurally Class 3 (Coupled) under standard parameterization.
-
-The proof is a one-induction over layer depth, structurally identical across the architectures of [[#^cor-arch-instantiations]] — the per-source non-degeneracy condition is the architecture-specific input, the directed-graph-path conclusion is the architecture-agnostic output. Robust to RMSNorm \citep{zhang-sennrich-2019-rmsnorm} / GroupNorm \citep{wu-he-2018-groupnorm} / FlashAttention \citep{dao-2022-flashattention} (position-wise / mathematically-equivalent), causal masking (preserves $\partial F_\ell^{(j)}/\partial h_{\ell-1}^{(i_G)} \ne 0$ for $i_G \le j$), and sliding-window or sparse attention (preserves connectivity by composition across layers when the window pattern admits a multi-hop path). Architectures with explicit goal-to-output blocking — token-dropping at intermediate layers, hard-routing MoE-attention with goal-conditional partitioning, or strictly goal-blind retrieval components — fall outside the lemma's scope and are appropriately Class 2 (Partial). Full proof and per-architecture verifications of $(\star)$ in [[#^sec-attention-coupled-proof]].
-
-[[#^lem-attention-coupled]] establishes a *downstream-output graph-reachability* claim: at every layer and every position causally downstream of the goal and evidence, the activation has a directed-graph path back to every goal position. The bias-bound *interpretation* additionally invokes the in-context-learning correspondence \cite{garg-tsipras-liang-valiant-2022-icl,akyurek-schuurmans-andreas-ma-zhou-2023-icl,vonoswald-2023-transformers-gd,xie-raghunathan-liang-ma-2022-icl-implicit-bayes} between the next-token distribution and an implicit posterior; the structural Coupled-class claim is robust without it.
+*Coupled-class autoregressive connectivity (deferred).* Lemma E.4 ([[#^lem-attention-coupled]] in [[#^sec-attention-coupled-proof]]) establishes that plain decoder-only transformer attention — and the broader family of autoregressive sequence models with causally-aggregated cross-position mixers under a per-source non-degeneracy condition (linear attention \citep{katharopoulos-2020-linear-attention}, selective state-space models / Mamba \citep{gu-dao-2024-mamba}, RWKV \citep{peng-2023-rwkv}, RetNet \citep{sun-2023-retnet}, long-convolution / Hyena \citep{poli-2023-hyena}) — is structurally Class 3 by directed-graph reachability across layer depth. The result is a *downstream-output graph-reachability* claim, not a quantitative coupling-magnitude claim — quantitative magnitude lives in $\kappa_{\text{processing}}$ — and is robust without invoking the in-context-learning correspondence \cite{garg-tsipras-liang-valiant-2022-icl,akyurek-schuurmans-andreas-ma-zhou-2023-icl,vonoswald-2023-transformers-gd,xie-raghunathan-liang-ma-2022-icl-implicit-bayes} that the bias-bound *application* additionally invokes.

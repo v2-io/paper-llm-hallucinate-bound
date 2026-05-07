@@ -1,6 +1,6 @@
 ## Related Work ^sec-related-work
 
-Two literatures sit on either side of the gap this paper closes; brief categorization (full positioning across all six adjacent strands in [[#^sec-related-work-extended]]).
+Two literatures sit on either side of the gap this paper bridges; brief categorization (full positioning across all six adjacent strands in [[#^sec-related-work-extended]]).
 
 **LLM hallucination theory** has produced architecturally-agnostic frequency lower bounds on calibrated language models — calibration-constrained singleton-fact rates, training-and-evaluation-incentive origins, learnability and computability obstructions, probabilistic-negligibility positive results (cited in §1). These results derive from training-set structure or capacity considerations and do not engage the architecture's belief-goal-coupling structure. They bound *how often* a calibrated model must hallucinate.
 

@@ -1,6 +1,6 @@
 ## Track 2 companions and parametric Euclidean translations ^sec-track2-companions
 
-The locally-tight Fisher-Rao geodesic bound ([[#^thm-umbrella]]'s Track 2 instantiation under (PI)+(R)+(K)+(H4$'$)) is one of three Fisher-Rao-spine bounds; the other two — a globally-valid *ambient Fisher-Rao spherical-arc* bound and a Hellinger chord backstop — recover under strictly weaker hypotheses, with universal constants of their own. Together with the conjugate-Gaussian Euclidean translation (review-defusing the no-go's apparent scale-family pathology) and the exponential-family Euclidean generalization, they form the Track 2 family.
+The locally-tight Fisher-Rao geodesic bound ([[#^thm-umbrella]]'s Track 2 instantiation under (PI)+(R)+(K)+(H4$'$)) is one of three Fisher-Rao-spine bounds; the other two — a globally-valid *ambient Fisher-Rao spherical-arc* bound and a Hellinger chord backstop — recover under strictly weaker hypotheses, with universal constants of their own. Together with the conjugate-Gaussian Euclidean translation (clarifying the no-go's apparent scale-family pathology) and the exponential-family Euclidean generalization, they form the Track 2 family.
 
 ### Track 2 global Fisher-Rao spherical-arc backstop ^sec-track2-global
 
@@ -52,7 +52,7 @@ The three Fisher-Rao-spine bounds — locally-tight $\sqrt{2}$ (under (H1)+(H4$'
 
 ### Conjugate-Gaussian Euclidean translation ^sec-conjugate-gauss-euclidean
 
-When (H1) is realized by a parametric family with known Fisher information, the locally-tight Fisher-Rao bound translates to an explicit Euclidean bound on parameter displacement. The conjugate-Gaussian case is paradigmatic and review-defusing: *Euclidean displacement does not blow up* in the prior-dominant limit, contrary to a naive reading of the no-go.
+When (H1) is realized by a parametric family with known Fisher information, the locally-tight Fisher-Rao bound translates to an explicit Euclidean bound on parameter displacement. The conjugate-Gaussian case clarifies the no-go's scope: *Euclidean displacement does not blow up* in the prior-dominant limit, contrary to a naive reading of the chart-rescaling argument.
 
 > [!theorem] Conjugate-Gaussian Euclidean bound ^thm-conjugate-gauss-euclidean
 > Under the conjugate-Gaussian setup ($\theta \sim \mathcal{N}(0,\tau^2)$, $\Omega \mid \theta \sim \mathcal{N}(\theta, \sigma^2)$, goal-conditional likelihood-mean shift $\Omega \mid G \sim \mathcal{N}(\beta(G), \sigma^2)$), the post-update parameter law is the Gaussian $\mu_+ \mid G \sim \mathcal{N}(L_{\text{post}}\beta(G),\, L_{\text{post}}^2\sigma^2)$ with $L_{\text{post}} = \tau^2/(\sigma^2+\tau^2)$. The locally-tight Fisher-Rao bound translates to the Euclidean bound on random-parameter displacement
