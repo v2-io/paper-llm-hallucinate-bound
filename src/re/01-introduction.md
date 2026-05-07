@@ -4,7 +4,7 @@ Recent hallucination theory bounds the *frequency* with which calibrated languag
 
 Bayesian inverse-problems theory in the lineage of \citet{stuart-2010-acta} has spent fifteen years building Lipschitz-stability bounds on the posterior under perturbations of the prior, the likelihood, and the data — \citet{sprungk-2020-local-lipschitz}, \citet{cvetkovic-2025-upper}, \citet{dolera-mainini-2023-aihp-lipschitz}, \citet{garbuno-inigo-2023-bayesian}, \citet{hosseini-hsu-taghvaei-2024-conditional-ot}. The transport-inequality apparatus driving these bounds — Otto-Villani, Bakry-Émery, Gozlan, Bobkov-Götze — is mature and verified across decades of inverse-problems practice.
 
-Neither lineage engages the implicit belief-goal-coupling structure of attention-based architectures — a structure intrinsic to LLMs by construction ([[#^lem-attention-coupled]]), not an incidental property of training.
+These lineages leave open the implicit belief-goal-coupling structure of attention-based architectures — a structure intrinsic to LLMs by construction ([[#^lem-attention-coupled]]), not an incidental property of training.
 
 Engaging this structure directly reframes the question: how much can an LLM be pulled away from what its evidence supports by the goal it is asked to satisfy? The empirical referent is *sycophancy* — LLM responses matching user beliefs over truthful ones, demonstrated across state-of-the-art assistants \citep{sharma-2023-sycophancy} — read as a goal-coupling-induced displacement of the response distribution from its evidence-marginal baseline; this paper bounds the magnitude of that displacement.
 
