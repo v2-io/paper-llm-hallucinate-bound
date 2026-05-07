@@ -66,11 +66,11 @@ The architectural classification's load-bearing application — that *plain deco
 > [!corollary] Named-architecture instantiations ^cor-arch-instantiations
 > Per-source non-degeneracy is satisfied generically by:
 > *(a)* plain decoder-only transformer attention (non-degenerate softmax attention weights, non-singular value projection);
-> *(b)* linear-attention transformers with non-vanishing feature map (e.g., $\phi = \mathrm{elu}+1$, $\phi = \exp$);
-> *(c)* selective state-space models / Mamba (non-singular discretized $\bar A = \exp(\Delta A)$ with $A < 0$ diagonal, non-zero $\bar B$ and $C$);
-> *(d)* RWKV time-mixing (positive time-decay);
-> *(e)* RetNet (decay $\gamma \in (0, 1)$);
-> *(f)* long-convolution architectures (full-support causal kernel).
+> *(b)* linear-attention transformers \citep{katharopoulos-2020-linear-attention} with non-vanishing feature map (e.g., $\phi = \mathrm{elu}+1$, $\phi = \exp$);
+> *(c)* selective state-space models / Mamba \citep{gu-dao-2024-mamba} (non-singular discretized $\bar A = \exp(\Delta A)$ with $A < 0$ diagonal, non-zero $\bar B$ and $C$);
+> *(d)* RWKV time-mixing \citep{peng-2023-rwkv} (positive time-decay);
+> *(e)* RetNet \citep{sun-2023-retnet} (decay $\gamma \in (0, 1)$);
+> *(f)* long-convolution / Hyena architectures \citep{poli-2023-hyena} (full-support causal kernel).
 >
 > Each is structurally Class 3 (Coupled) under standard parameterization.
 
