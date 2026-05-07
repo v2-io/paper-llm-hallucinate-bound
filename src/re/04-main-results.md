@@ -23,6 +23,8 @@ The umbrella theorem bounds the goal-conditional displacement of the post-update
 > [!hypothesis] (H4$'$) Uniform local regime ^h4-prime
 > $\mathrm{ess\,sup}_g\,\mathrm{KL}(P_{M_{\tau^+}\mid e, M_{\tau^-}, G=g}\,\|\,P_{M_{\tau^+}\mid e, M_{\tau^-}}) \le \delta_\star$ for some $\delta_\star \in (0, 1)$. Every goal-conditional slice — not merely the average — is uniformly close to the goal-marginal on the statistical manifold. (H4$'$) is strictly stronger than $\mathbb{E}_G[\mathrm{KL}_g] = I \ll 1$; small mean does not imply small ess-sup.
 
+*Adversarial / rare-high-KL goals.* (H4$'$)'s ess-sup form fails when even one rare goal $g$ produces a slice with large $\mathrm{KL}_g$ — the regime adversarial prompts (jailbreaks, persona injection) exploit. Outside (H4$'$), the *globally-valid* Track 2 constant $C = 2$ under (PI) alone (Theorem D.1) is the operating bound; the locally-tight $\sqrt 2$ does not apply.
+
 **Remarks on [[#^thm-umbrella]].**
 
 *The two tracks bound different metrics with the same square-root-in-information shape.* Track 1 lives on $W_2$, Track 2 on $d_{FR}$. Both deliver bounds of form $\mathbb{E}\,d \le C\sqrt{I_M}$ where $I_M = I(G; M_{\tau^+}\mid e_\tau, M_{\tau^-})$ is transferred goal-information. The two are not "different scalings"; they are bounds on different metrics with the same information dependence.
