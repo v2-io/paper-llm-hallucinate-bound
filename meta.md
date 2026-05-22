@@ -2,8 +2,8 @@
 title: "How Much Can LLMs Hallucinate? An Upper Bound on Goal-Coupling Displacement"
 authors:
   - name: Joseph A. Wecker
-    affiliation: Independent
-    email: joseph.wecker@gmail.com
+    affiliation: Independent Researcher, Vis Veritatis (v2.io), Lehi, USA
+    email: joseph.wecker@v2.io
 ---
 
 Hallucination theory bounds *frequency* from below — calibrated LLMs must hallucinate at some rate. We bound from above a complementary quantity: the goal-coupling-induced displacement of the post-update belief state — the operational shape of *sycophancy* \citep{sharma-2023-sycophancy}, where LLM responses match user beliefs over truthful ones. The chain rule of relative entropy on the post-update law equals the *transferred* goal-information that enters the model state, delivering
