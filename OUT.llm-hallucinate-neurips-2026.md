@@ -1,8 +1,8 @@
-# OUT.re-paper.md — refactored 8pp NeurIPS-form manifest
+# OUT.llm-hallucinate-neurips-2026.md — NeurIPS-form manifest (9pp main text)
 
-*Reshape per `VISION.md` and umbrella `OUTLINE-STRATEGY.md`. Authors a fresh main-text structure into `src/re/`, with the existing `src/` segments treated as substrate (read-only, not output). When the reshape validates, archive old `src/` and rename `src/re/` → `src/`.*
+*Renamed from `OUT.re-paper.md` — the `re` disambiguator no longer does work. The reshape it described (fresh main text authored into `src/re/` per `VISION.md` + umbrella `OUTLINE-STRATEGY.md`, with the pre-reshape `src/` segments as read-only substrate) completed and validated before submission; the old `src/` segments were archived. The `src/re/` → `src/` rename that plan anticipated was **not** done — `src/re/` is the live segment directory, and `src/` holds only `checklist.tex` plus `re/`.*
 
-*Authoring order (per VISION.md): §1 first as spine-test, then §3+§4, then §5, then conclusion, then appendices. Empty sections appear as forward-references in §1's roadmap and resolve when their segments land.*
+*Builds to 9pp main text / 37pp with appendices. Submitted to NeurIPS 2026 (submission 33977) from tag `submitted/neurips-2026`.*
 
 | § | Type         | Slug                                                            | Title                                                       | Stage |
 |---|--------------|-----------------------------------------------------------------|-------------------------------------------------------------|-------|

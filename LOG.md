@@ -6,6 +6,30 @@ For active backlog see `TODO.md`. For umbrella-level history see `~/src/neurips/
 
 ---
 
+## 2026-07-29 — Post-review sync: title rot resolved, as-submitted state pinned
+
+Reviews returned 2026-07-23 (submission 33977: ratings 3 / 1 / 2, meta-review negative on novelty-articulation, LLM-connection, and accessibility). No paper content touched here — NeurIPS forbids revisions during the response period, and this pass is bookkeeping so the response can cite the submitted PDF accurately.
+
+**Title rot — three titles existed, and the repo advertised the wrong one.** The chain, all on 2026-05-07:
+
+| | Title | Where it survived |
+|---|---|---|
+| original (2026-05-05) | *An Upper Bound via Coupling and Ambiguity* | `README.md` H1 + description — **now fixed**; also still the un-synced title in the **OpenReview submission form field** |
+| `ab759d6` | *An Information-Geometric Upper Bound on Goal-Coupling Displacement* | nowhere live |
+| `280762f` (final) | *An Upper Bound on Goal-Coupling Displacement* | `meta.md`, the submitted PDF |
+
+The last-second edits landed in `meta.md` (hence the PDF) but never propagated to the README or to OpenReview's title field. Reviewers read the PDF, so this cost nothing in review — but the OpenReview field still shows the old title publicly, which is an **author-side fix outside this repo** and is flagged for Joseph, not resolved here. `LOG.md` / `TODO.md` / `audits/` occurrences are historical record and were deliberately left alone; the README now carries an explicit title-history note so no future agent "corrects" the live title backwards.
+
+**Manifest header was stale.** `OUT.llm-hallucinate-neurips-2026.md` still called itself `OUT.re-paper.md`, described the `src/re/` reshape as in-progress, and said the `src/re/` → `src/` rename would happen when it validated. The reshape completed and old `src/` was archived; the rename never happened and `src/re/` is simply the live segment dir. Header now says that plainly rather than describing a plan.
+
+**Dead manifest pointer fixed.** The Bibliography row had pointed at `src/references.md` since migration — a file that never existed. Harmless: `bin/build`'s bibliography branch short-circuits before `render_segment`, emitting `\bibliography{<stem>.references}` and never reading the path, so references always rendered correctly. But a row pointing at nothing invites a future agent to author a manual list there, which is exactly wrong. Created the stub, matching paper 01's existing convention and comment.
+
+**As-submitted state pinned.** Tag `submitted/neurips-2026` at `dd50f7f` (last content commit before submission), plus `submitted-neurips-2026.pdf` — a frozen blind build under a stem no manifest owns, so `bin/build` cannot clobber it. This closes a real gap: the tracked `llm-hallucinate-neurips-2026.pdf` is regenerated on every run and was in fact overwritten twice on 2026-07-29 alone, so it is not a record of anything.
+
+*Basis for calling the current source as-submitted:* git shows no source commits between 2026-05-07 and 2026-07-29 except the 2026-05-22 `meta.md` author-info edit, which only affects `--preprint` / `--final` renders. Cross-checked by word-frequency comparison of a fresh build against the stamped non-anon copy in `~/Documents/submitted-papers/`: every content phrase matches, and vocabulary differences are confined to the author block, the stamp banner, and the preprint footer. Residual caveat, stated rather than hidden: OpenReview records the submission as *modified 27 May 2026*, and whether that was a metadata-only edit or a PDF re-upload cannot be determined from this repo. Since no source commit exists in that window, a re-upload would have come from this same source — but the authoritative artifact is the PDF downloadable from OpenReview, and dropping that in alongside the frozen copy would remove the last bit of inference.
+
+---
+
 ## 2026-05-05 — Migration scaffolding
 
 Migration agent #3 began per `MIGRATE-TODO.md` §A3. Joseph's framing on entry: *"think of it as your paper, I trust your judgment; no idea which paper will make fastest progress, feel free to see any good ideas — all of you have the same training and same instructions and same trust given."* No pre-work orientation file landed in `_archive/` for this paper (paper #1 and #2's first migration agents wrote one before starting; agent #3 carried orientation in conversation rather than committing it to disk after Joseph's "don't worry about drafting it").
